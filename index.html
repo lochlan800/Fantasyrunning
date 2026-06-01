@@ -53,13 +53,13 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 .scard .ssub{font-size:12px;color:var(--t3);margin-top:4px}
 .scard.or .sval{color:var(--or)}.scard.gd .sval{color:var(--gold)}.scard.bl .sval{color:var(--blue)}.scard.gr .sval{color:var(--green)}
 
-/* RUNNER CARDS */
+/* RUNNER CARDS (draft + picker) */
 .rg{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
 .rc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;transition:all .15s;position:relative;overflow:hidden}
 .rc:hover{background:var(--card2);border-color:var(--or)}
 .rc.drafted{border-color:var(--green);background:#1a2a1a}
 .rc.drafted::after{content:'✓ On Team';position:absolute;top:8px;right:8px;background:var(--green);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px}
-.rc.over{opacity:.45;pointer-events:none}
+.rc.over{opacity:.45}
 .rav{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:#fff}
 .rname{font-weight:700;font-size:14px;margin-bottom:2px}
 .rcountry{font-size:12px;color:var(--t2);margin-bottom:8px}
@@ -95,16 +95,46 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 /* BUDGET BAR */
 .budbar{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:16px}
 .budbar-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.budbar-nums{display:flex;gap:16px;font-size:12px;color:var(--t2)}
+.budbar-nums{display:flex;gap:16px;font-size:12px;color:var(--t2);flex-wrap:wrap}
 .budbar-nums .used{color:var(--or);font-weight:700}.budbar-nums .rem{color:var(--gold);font-weight:700}
 .budbar-track{height:8px;background:var(--bg2);border-radius:4px;overflow:hidden}
 .budbar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--or),var(--gold));transition:width .3s}
 
-/* ROSTER */
-.roc{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
-.rocard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;position:relative}
-.ro-pts{font-size:24px;font-weight:800;color:var(--or);margin-top:8px}
-.ro-pts span{font-size:12px;color:var(--t3);font-weight:400}
+/* ===== TRACK / LINEUP ===== */
+.track{position:relative;overflow:hidden;border-radius:18px;padding:18px;
+  border:4px solid #e8e8e8;
+  background:linear-gradient(135deg,#A8432F 0%,#C0563D 50%,#A8432F 100%)}
+.track::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(180deg,transparent 0,transparent 78px,rgba(255,255,255,.28) 78px,rgba(255,255,255,.28) 81px)}
+.track-head{position:relative;z-index:1;display:flex;align-items:center;gap:10px;
+  font-weight:800;font-size:15px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.4);margin-bottom:14px}
+.track-head small{font-weight:600;font-size:12px;opacity:.85}
+.lane{position:relative;z-index:1;background:rgba(15,15,18,.80);border:1px solid var(--border);
+  border-radius:12px;padding:12px 14px;margin-bottom:12px;backdrop-filter:blur(2px)}
+.lane:last-child{margin-bottom:0}
+.lane-tag{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:14px;
+  margin-bottom:10px;padding:5px 14px;border-radius:20px;background:var(--c);color:#fff}
+.lane-tag small{font-weight:600;opacity:.9;font-size:11px}
+.slots{display:flex;flex-wrap:wrap;gap:10px}
+.slot{width:128px;min-height:126px;border-radius:12px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:3px;cursor:pointer;text-align:center;
+  padding:10px;position:relative;transition:all .15s}
+.slot.empty{border:2px dashed rgba(255,255,255,.45);background:rgba(255,255,255,.06);color:#fff}
+.slot.empty:hover{border-color:#fff;background:rgba(255,255,255,.15);transform:translateY(-2px)}
+.slot.empty .plus{font-size:30px;font-weight:200;line-height:1}
+.slot.empty .slot-ev{font-size:12px;font-weight:700}
+.slot.empty .slot-hint{font-size:10px;opacity:.75}
+.slot.filled{background:var(--card);border:2px solid var(--green)}
+.slot.filled:hover{border-color:var(--or);transform:translateY(-2px)}
+.slot-av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:14px;color:#fff;margin-bottom:2px}
+.slot-name{font-weight:700;font-size:12px;line-height:1.15}
+.slot-ev{font-size:10px;color:var(--t2)}
+.slot-pts{font-size:12px;font-weight:800;color:var(--or)}
+.slot-x{position:absolute;top:5px;right:5px;width:20px;height:20px;border-radius:50%;border:none;
+  background:var(--red);color:#fff;font-size:14px;cursor:pointer;line-height:1;
+  display:flex;align-items:center;justify-content:center;z-index:2}
+.slot-x:hover{background:#c0392b}
 
 /* STATUS BADGES */
 .sbadge{display:inline-block;padding:2px 9px;border-radius:10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
@@ -147,13 +177,20 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 .srch{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;color:var(--text);font-size:14px;width:220px;outline:none;transition:border-color .15s}
 .srch::placeholder{color:var(--t3)}.srch:focus{border-color:var(--or)}
 
-/* MODAL */
-.mover{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;display:none;align-items:center;justify-content:center}
+/* MODAL / PICKER */
+.mover{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:500;display:none;align-items:center;justify-content:center;padding:16px}
 .mover.open{display:flex}
-.modal{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;max-width:480px;width:calc(100% - 32px)}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;max-width:480px;width:100%}
 .mtitle{font-size:18px;font-weight:800;margin-bottom:4px}
 .msub{color:var(--t2);font-size:13px;margin-bottom:20px}
 .mact{display:flex;gap:8px;margin-top:20px;justify-content:flex-end}
+.picker{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;
+  max-width:780px;width:100%;max-height:86vh;overflow:auto}
+.picker-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.picker-hdr h3{font-size:18px;font-weight:800}
+.picker-close{background:var(--card2);border:1px solid var(--border);color:var(--t2);width:32px;height:32px;
+  border-radius:8px;cursor:pointer;font-size:18px;line-height:1}
+.picker-close:hover{border-color:var(--or);color:var(--or)}
 
 /* TOAST */
 .toast{position:fixed;bottom:24px;right:24px;background:var(--card2);border:1px solid var(--border);border-radius:10px;
@@ -161,7 +198,7 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 .toast.show{transform:translateY(0);opacity:1}
 .toast.ok{border-color:var(--green);color:var(--green)}.toast.err{border-color:var(--red);color:var(--red)}
 
-.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:12px;flex-wrap:wrap}
 .sec-title{font-size:20px;font-weight:800}
 .empty{text-align:center;padding:48px 24px;color:var(--t3)}
 .empty .ic{font-size:48px;margin-bottom:12px}
@@ -182,7 +219,7 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
     <div class="logo-text">Fantasy <span>Track & Field</span></div>
   </div>
   <div class="hdr-r">
-    <div class="bud-badge">💰 <span class="cred" id="hBudget">100</span> <span style="color:var(--t3)">credits</span></div>
+    <div class="bud-badge">💰 Value <span class="cred" id="hValue">0</span></div>
     <div class="team-badge" onclick="openNameModal()">✏️ <span id="hTeamName">My Team</span></div>
   </div>
 </header>
@@ -190,9 +227,9 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 <!-- NAV -->
 <nav class="nav">
   <div class="ntab active" data-tab="dashboard" onclick="go('dashboard')">🏠 Dashboard</div>
-  <div class="ntab" data-tab="draft" onclick="go('draft')">📋 Draft</div>
-  <div class="ntab" data-tab="myteam" onclick="go('myteam')">👕 My Team</div>
-  <div class="ntab" data-tab="events" onclick="go('events')">🏟️ Events</div>
+  <div class="ntab" data-tab="draft" onclick="go('draft')">📋 Athletes</div>
+  <div class="ntab" data-tab="myteam" onclick="go('myteam')">🏟️ My Team</div>
+  <div class="ntab" data-tab="events" onclick="go('events')">📅 Events</div>
   <div class="ntab" data-tab="standings" onclick="go('standings')">🏆 Standings</div>
 </nav>
 
@@ -207,8 +244,8 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
   <div class="g4" style="margin-bottom:20px">
     <div class="scard or"><div class="slabel">Your Points</div><div class="sval" id="dPts">0</div><div class="ssub">all time</div></div>
     <div class="scard gd"><div class="slabel">League Rank</div><div class="sval" id="dRank">—</div><div class="ssub">of 4 teams</div></div>
-    <div class="scard bl"><div class="slabel">Roster Size</div><div class="sval" id="dRos">0</div><div class="ssub">of 6 max</div></div>
-    <div class="scard gr"><div class="slabel">Budget Left</div><div class="sval" id="dBud">100</div><div class="ssub">credits</div></div>
+    <div class="scard bl"><div class="slabel">Lanes Filled</div><div class="sval" id="dRos">0</div><div class="ssub">of 19 lanes</div></div>
+    <div class="scard gr"><div class="slabel">Team Value</div><div class="sval" id="dBud">0</div><div class="ssub">credits</div></div>
   </div>
   <div class="g2" style="margin-bottom:20px">
     <div class="devt">
@@ -223,31 +260,31 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
     <div class="card">
       <div class="card-title">⭐ Your Top Performers</div>
       <div id="dPerfs">
-        <div class="empty" style="padding:20px"><div class="ic">📋</div><p>Draft athletes to see performers</p></div>
+        <div class="empty" style="padding:20px"><div class="ic">🏟️</div><p>Build your lineup to see performers</p></div>
       </div>
     </div>
   </div>
   <div id="dDraftPrompt" class="card" style="text-align:center;padding:32px">
-    <div style="font-size:40px;margin-bottom:12px">🏃‍♂️</div>
-    <div style="font-size:17px;font-weight:700;margin-bottom:6px">Build Your Team</div>
-    <div style="font-size:13px;color:var(--t2);margin-bottom:16px">You have 100 credits. Draft up to 6 world-class athletes!</div>
-    <button class="btn btn-p" onclick="go('draft')">Go to Draft Room →</button>
+    <div style="font-size:40px;margin-bottom:12px">🏟️</div>
+    <div style="font-size:17px;font-weight:700;margin-bottom:6px">Build Your Lineup</div>
+    <div style="font-size:13px;color:var(--t2);margin-bottom:16px">Fill all 19 lanes on your track with world-class athletes!</div>
+    <button class="btn btn-p" onclick="go('myteam')">Open My Team Track →</button>
   </div>
 </section>
 
-<!-- DRAFT -->
+<!-- ATHLETES (DRAFT) -->
 <section class="sec" id="sec-draft">
   <div class="sec-hdr">
-    <h1 class="sec-title">Draft Room</h1>
+    <h1 class="sec-title">Athlete Pool</h1>
     <input class="srch" id="srch" placeholder="🔍 Search athletes..." oninput="renderDraft()">
   </div>
   <div class="budbar">
     <div class="budbar-hdr">
-      <span style="font-size:13px;font-weight:700">Budget</span>
+      <span style="font-size:13px;font-weight:700">Lineup Progress</span>
       <div class="budbar-nums">
-        <span>Used: <span class="used" id="bUsed">0</span></span>
-        <span>Remaining: <span class="rem" id="bRem">100</span></span>
-        <span style="color:var(--t3)">Roster: <span id="bRos">0</span>/6</span>
+        <span>Filled: <span class="used" id="bUsed">0</span>/19</span>
+        <span>Open lanes: <span class="rem" id="bRem">19</span></span>
+        <span style="color:var(--t3)">Team value: <span id="bRos">0</span></span>
       </div>
     </div>
     <div class="budbar-track"><div class="budbar-fill" id="bBar" style="width:0%"></div></div>
@@ -307,84 +344,159 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
   </div>
 </div>
 
-<script>
-// ── DATA ──────────────────────────────────────────────────────
+<!-- ATHLETE PICKER -->
+<div class="mover" id="pickerModal">
+  <div class="picker">
+    <div class="picker-hdr">
+      <h3 id="pickerTitle">Pick an athlete</h3>
+      <button class="picker-close" onclick="closePicker()">×</button>
+    </div>
+    <div class="msub" id="pickerSub">Choose a runner for this lane</div>
+    <div class="rg" id="pickerGrid"></div>
+  </div>
+</div>
 
-const BUDGET = 100, MAX_ROSTER = 6;
+<script>
+// ── CONFIG ────────────────────────────────────────────────────
 
 const PTS = {1:15,2:12,3:10,4:8,5:6,6:5,7:4,8:3};
-
 const CAT_COLOR = {sprint:'#FF6B35',middle:'#4361EE',distance:'#9B59B6',hurdles:'#E74C3C',field:'#27AE60'};
 
+// Track lineup: each event has a fixed number of lanes (slots)
+const SLOTS = [
+  {event:"100m",  count:3},
+  {event:"200m",  count:2},
+  {event:"400m",  count:1},
+  {event:"800m",  count:4},
+  {event:"1500m", count:5},
+  {event:"100mH", count:2},
+  {event:"400mH", count:2},
+];
+const TOTAL_SLOTS = SLOTS.reduce((s,g)=>s+g.count,0); // 19
+
+const EVENT_COLOR = {'100m':'#FF6B35','200m':'#FF8C42','400m':'#E67E22','800m':'#4361EE','1500m':'#9B59B6','100mH':'#E74C3C','400mH':'#C0392B'};
+
+// ── ATHLETES ──────────────────────────────────────────────────
+
 const RUNNERS = [
-  // Sprints – Men
-  {id:1,  name:"Noah Lyles",            flag:"🇺🇸",country:"USA",         events:["100m","200m"],   cat:"sprint",  cost:22,rank:1, pb:"9.83 (100m)",    bio:"Reigning World 100m & 200m Champion"},
-  {id:2,  name:"Fred Kerley",           flag:"🇺🇸",country:"USA",         events:["100m"],          cat:"sprint",  cost:18,rank:2, pb:"9.84 (100m)",    bio:"2022 World 100m Champion"},
-  {id:3,  name:"Marcell Jacobs",        flag:"🇮🇹",country:"Italy",       events:["100m"],          cat:"sprint",  cost:13,rank:5, pb:"9.80 (100m)",    bio:"Olympic 100m Champion, Tokyo 2020"},
-  {id:4,  name:"Erriyon Knighton",      flag:"🇺🇸",country:"USA",         events:["200m"],          cat:"sprint",  cost:16,rank:3, pb:"19.49 (200m)",   bio:"Youngest ever sub-19.50 in 200m"},
-  {id:5,  name:"Letsile Tebogo",        flag:"🇧🇼",country:"Botswana",    events:["200m"],          cat:"sprint",  cost:17,rank:2, pb:"19.46 (200m)",   bio:"Olympic 200m Champion, Paris 2024"},
-  // Sprints – Women
-  {id:6,  name:"Sha'Carri Richardson",  flag:"🇺🇸",country:"USA",         events:["100m","200m"],   cat:"sprint",  cost:20,rank:1, pb:"10.71 (100m)",   bio:"World 100m Champion, fan favourite"},
-  {id:7,  name:"Shericka Jackson",      flag:"🇯🇲",country:"Jamaica",     events:["100m","200m"],   cat:"sprint",  cost:18,rank:2, pb:"21.41 (200m)",   bio:"World 200m record holder"},
-  {id:8,  name:"Julien Alfred",         flag:"🇱🇨",country:"St. Lucia",   events:["100m"],          cat:"sprint",  cost:17,rank:1, pb:"10.72 (100m)",   bio:"Olympic 100m Champion, Paris 2024"},
-  // Middle distance
-  {id:9,  name:"Jakob Ingebrigtsen",    flag:"🇳🇴",country:"Norway",      events:["1500m","5000m"], cat:"middle",  cost:23,rank:1, pb:"3:26.73 (1500m)",bio:"5× European Champion, Olympic 1500m gold"},
-  {id:10, name:"Josh Kerr",             flag:"🇬🇧",country:"Great Britain",events:["1500m"],         cat:"middle",  cost:16,rank:2, pb:"3:26.95 (1500m)",bio:"World 1500m Champion, Budapest 2023"},
-  {id:11, name:"Cole Hocker",           flag:"🇺🇸",country:"USA",         events:["1500m"],         cat:"middle",  cost:14,rank:3, pb:"3:27.65 (1500m)",bio:"Olympic 1500m Champion, Paris 2024"},
-  {id:12, name:"Faith Kipyegon",        flag:"🇰🇪",country:"Kenya",       events:["1500m","5000m"], cat:"middle",  cost:24,rank:1, pb:"3:49.11 (1500m)",bio:"3× Olympic 1500m Champion, all-time great"},
-  {id:13, name:"Keely Hodgkinson",      flag:"🇬🇧",country:"Great Britain",events:["800m"],          cat:"middle",  cost:19,rank:1, pb:"1:55.16 (800m)", bio:"Olympic 800m Champion, Paris 2024"},
-  {id:14, name:"Athing Mu",             flag:"🇺🇸",country:"USA",         events:["800m"],          cat:"middle",  cost:18,rank:2, pb:"1:55.04 (800m)", bio:"Two-time Olympic 800m medallist"},
-  // Hurdles
-  {id:15, name:"Sydney McLaughlin-Levrone",flag:"🇺🇸",country:"USA",      events:["400mH"],         cat:"hurdles", cost:25,rank:1, pb:"50.65 (400mH)",  bio:"400mH world record holder, virtually unbeatable"},
-  {id:16, name:"Rai Benjamin",           flag:"🇺🇸",country:"USA",        events:["400mH"],         cat:"hurdles", cost:19,rank:1, pb:"46.17 (400mH)",  bio:"Olympic 400mH Champion, Paris 2024"},
-  {id:17, name:"Grant Holloway",         flag:"🇺🇸",country:"USA",        events:["110mH"],         cat:"hurdles", cost:18,rank:1, pb:"12.98 (110mH)",  bio:"2× World 110mH Champion"},
-  // Distance
-  {id:18, name:"Sifan Hassan",           flag:"🇳🇱",country:"Netherlands",events:["5000m","10000m"],cat:"distance",cost:17,rank:1, pb:"14:22.12 (5000m)",bio:"3× Olympic medallist, marathon and track star"},
-  {id:19, name:"Beatrice Chebet",        flag:"🇰🇪",country:"Kenya",      events:["5000m","10000m"],cat:"distance",cost:16,rank:1, pb:"14:23.27 (5000m)",bio:"Olympic 5000m & 10000m double Champion"},
-  // Field
-  {id:20, name:"Mondo Duplantis",        flag:"🇸🇪",country:"Sweden",     events:["Pole Vault"],    cat:"field",   cost:22,rank:1, pb:"6.26m",          bio:"World record holder, Olympic Pole Vault champion"},
-  {id:21, name:"Ryan Crouser",           flag:"🇺🇸",country:"USA",        events:["Shot Put"],      cat:"field",   cost:14,rank:1, pb:"23.56m",         bio:"3× Olympic Shot Put Champion"},
-  {id:22, name:"Yaroslava Mahuchikh",    flag:"🇺🇦",country:"Ukraine",    events:["High Jump"],     cat:"field",   cost:17,rank:1, pb:"2.10m",          bio:"Olympic & World High Jump Champion, world record"},
+  // 100m / 200m sprinters
+  {id:1, name:"Noah Lyles",           flag:"🇺🇸",country:"USA",          events:["100m","200m"],   cat:"sprint",  cost:22,rank:1, pb:"9.83 (100m)",    bio:"Reigning World 100m & 200m Champion"},
+  {id:2, name:"Fred Kerley",          flag:"🇺🇸",country:"USA",          events:["100m"],          cat:"sprint",  cost:18,rank:2, pb:"9.84 (100m)",    bio:"2022 World 100m Champion"},
+  {id:3, name:"Marcell Jacobs",       flag:"🇮🇹",country:"Italy",        events:["100m"],          cat:"sprint",  cost:13,rank:5, pb:"9.80 (100m)",    bio:"Olympic 100m Champion, Tokyo 2020"},
+  {id:4, name:"Erriyon Knighton",     flag:"🇺🇸",country:"USA",          events:["200m"],          cat:"sprint",  cost:16,rank:3, pb:"19.49 (200m)",   bio:"Youngest ever sub-19.50 in 200m"},
+  {id:5, name:"Letsile Tebogo",       flag:"🇧🇼",country:"Botswana",     events:["200m"],          cat:"sprint",  cost:17,rank:2, pb:"19.46 (200m)",   bio:"Olympic 200m Champion, Paris 2024"},
+  {id:6, name:"Sha'Carri Richardson", flag:"🇺🇸",country:"USA",          events:["100m","200m"],   cat:"sprint",  cost:20,rank:1, pb:"10.71 (100m)",   bio:"World 100m Champion, fan favourite"},
+  {id:7, name:"Shericka Jackson",     flag:"🇯🇲",country:"Jamaica",      events:["100m","200m"],   cat:"sprint",  cost:18,rank:2, pb:"21.41 (200m)",   bio:"World 200m record holder"},
+  {id:8, name:"Julien Alfred",        flag:"🇱🇨",country:"St. Lucia",    events:["100m"],          cat:"sprint",  cost:17,rank:1, pb:"10.72 (100m)",   bio:"Olympic 100m Champion, Paris 2024"},
+  // 400m
+  {id:23,name:"Quincy Hall",          flag:"🇺🇸",country:"USA",          events:["400m"],          cat:"sprint",  cost:16,rank:1, pb:"43.40 (400m)",   bio:"Olympic 400m Champion, Paris 2024"},
+  {id:24,name:"Matthew Hudson-Smith", flag:"🇬🇧",country:"Great Britain",events:["400m"],          cat:"sprint",  cost:13,rank:2, pb:"43.44 (400m)",   bio:"European record holder, Olympic silver"},
+  {id:25,name:"Marileidy Paulino",    flag:"🇩🇴",country:"Dominican Rep.",events:["400m"],         cat:"sprint",  cost:17,rank:1, pb:"48.17 (400m)",   bio:"Olympic & World 400m Champion"},
+  // 800m
+  {id:13,name:"Keely Hodgkinson",     flag:"🇬🇧",country:"Great Britain",events:["800m"],          cat:"middle",  cost:19,rank:1, pb:"1:55.16 (800m)", bio:"Olympic 800m Champion, Paris 2024"},
+  {id:14,name:"Athing Mu",            flag:"🇺🇸",country:"USA",          events:["800m"],          cat:"middle",  cost:18,rank:2, pb:"1:54.61 (800m)", bio:"Two-time Olympic 800m medallist"},
+  {id:26,name:"Emmanuel Wanyonyi",    flag:"🇰🇪",country:"Kenya",        events:["800m"],          cat:"middle",  cost:17,rank:1, pb:"1:41.11 (800m)", bio:"Olympic 800m Champion, Paris 2024"},
+  {id:27,name:"Marco Arop",           flag:"🇨🇦",country:"Canada",       events:["800m"],          cat:"middle",  cost:15,rank:2, pb:"1:41.20 (800m)", bio:"World 800m Champion, Budapest 2023"},
+  {id:28,name:"Mary Moraa",           flag:"🇰🇪",country:"Kenya",        events:["800m"],          cat:"middle",  cost:14,rank:1, pb:"1:56.03 (800m)", bio:"World 800m Champion, Budapest 2023"},
+  {id:29,name:"Djamel Sedjati",       flag:"🇩🇿",country:"Algeria",      events:["800m"],          cat:"middle",  cost:12,rank:3, pb:"1:41.46 (800m)", bio:"Olympic 800m silver medallist"},
+  // 1500m
+  {id:9, name:"Jakob Ingebrigtsen",   flag:"🇳🇴",country:"Norway",       events:["1500m"],         cat:"middle",  cost:23,rank:1, pb:"3:26.73 (1500m)",bio:"5× European Champion, Olympic gold"},
+  {id:10,name:"Josh Kerr",            flag:"🇬🇧",country:"Great Britain",events:["1500m"],         cat:"middle",  cost:16,rank:2, pb:"3:26.95 (1500m)",bio:"World 1500m Champion, Budapest 2023"},
+  {id:11,name:"Cole Hocker",          flag:"🇺🇸",country:"USA",          events:["1500m"],         cat:"middle",  cost:14,rank:3, pb:"3:27.65 (1500m)",bio:"Olympic 1500m Champion, Paris 2024"},
+  {id:12,name:"Faith Kipyegon",       flag:"🇰🇪",country:"Kenya",        events:["1500m"],         cat:"middle",  cost:24,rank:1, pb:"3:49.04 (1500m)",bio:"3× Olympic 1500m Champion, all-time great"},
+  {id:30,name:"Yared Nuguse",         flag:"🇺🇸",country:"USA",          events:["1500m"],         cat:"middle",  cost:14,rank:2, pb:"3:43.97 (mile)", bio:"American record holder, Olympic bronze"},
+  {id:31,name:"Diribe Welteji",       flag:"🇪🇹",country:"Ethiopia",     events:["1500m"],         cat:"middle",  cost:13,rank:2, pb:"3:50.30 (1500m)",bio:"World 1500m silver medallist"},
+  {id:32,name:"Narve Gilje Nordås",   flag:"🇳🇴",country:"Norway",       events:["1500m"],         cat:"middle",  cost:11,rank:4, pb:"3:29.47 (1500m)",bio:"World 1500m bronze medallist"},
+  // 100m hurdles (women's) — also matches 110m hurdles men
+  {id:33,name:"Masai Russell",        flag:"🇺🇸",country:"USA",          events:["100mH"],         cat:"hurdles", cost:16,rank:1, pb:"12.17 (100mH)",  bio:"Olympic 100mH Champion, Paris 2024"},
+  {id:34,name:"Tobi Amusan",          flag:"🇳🇬",country:"Nigeria",      events:["100mH"],         cat:"hurdles", cost:15,rank:1, pb:"12.12 (100mH)",  bio:"100mH world record holder"},
+  {id:35,name:"Keni Harrison",        flag:"🇺🇸",country:"USA",          events:["100mH"],         cat:"hurdles", cost:12,rank:3, pb:"12.20 (100mH)",  bio:"Former 100mH world record holder"},
+  {id:17,name:"Grant Holloway",       flag:"🇺🇸",country:"USA",          events:["110mH"],         cat:"hurdles", cost:18,rank:1, pb:"12.81 (110mH)",  bio:"Olympic & 3× World 110mH Champion"},
+  // 400m hurdles
+  {id:15,name:"Sydney McLaughlin-Levrone",flag:"🇺🇸",country:"USA",      events:["400mH"],         cat:"hurdles", cost:25,rank:1, pb:"50.37 (400mH)",  bio:"400mH world record holder, unbeatable"},
+  {id:16,name:"Rai Benjamin",         flag:"🇺🇸",country:"USA",          events:["400mH"],         cat:"hurdles", cost:19,rank:1, pb:"46.17 (400mH)",  bio:"Olympic 400mH Champion, Paris 2024"},
+  {id:36,name:"Femke Bol",            flag:"🇳🇱",country:"Netherlands",  events:["400mH"],         cat:"hurdles", cost:20,rank:2, pb:"50.95 (400mH)",  bio:"European record holder, World Champion"},
+  {id:37,name:"Alison dos Santos",    flag:"🇧🇷",country:"Brazil",       events:["400mH"],         cat:"hurdles", cost:15,rank:2, pb:"46.29 (400mH)",  bio:"World 400mH Champion, Olympic medallist"},
+  // Field / distance (in pool & standings; no track lane in this formation)
+  {id:18,name:"Sifan Hassan",         flag:"🇳🇱",country:"Netherlands",  events:["5000m"],         cat:"distance",cost:17,rank:1, pb:"14:13.42 (5000m)",bio:"Olympic marathon champion, distance great"},
+  {id:19,name:"Beatrice Chebet",      flag:"🇰🇪",country:"Kenya",        events:["5000m"],         cat:"distance",cost:16,rank:1, pb:"13:54.87 (5000m)",bio:"Olympic 5000m & 10000m double Champion"},
+  {id:20,name:"Mondo Duplantis",      flag:"🇸🇪",country:"Sweden",       events:["Pole Vault"],    cat:"field",   cost:22,rank:1, pb:"6.26m",          bio:"World record holder, Olympic champion"},
+  {id:21,name:"Ryan Crouser",         flag:"🇺🇸",country:"USA",          events:["Shot Put"],      cat:"field",   cost:14,rank:1, pb:"23.56m",         bio:"3× Olympic Shot Put Champion"},
+  {id:22,name:"Yaroslava Mahuchikh",  flag:"🇺🇦",country:"Ukraine",      events:["High Jump"],     cat:"field",   cost:17,rank:1, pb:"2.10m",          bio:"Olympic & World High Jump Champion, WR"},
 ];
 
 // Completed meet results: meetId → { runnerId: finishPosition }
 const RESULTS = {
-  1: {1:3,2:1,3:2,4:1,5:2,6:2,7:3,8:1,9:1,10:3,11:2,12:1,13:1,14:2,15:1,16:1,17:1,18:2,19:1,20:1,21:1,22:1},
-  2: {1:1,2:2,3:4,4:2,5:1,6:1,7:2,8:3,9:2,10:1,11:3,12:1,13:2,14:1,15:1,16:2,17:1,18:1,19:2,20:1,21:1,22:2},
+  1: {1:3,2:1,3:2,4:1,5:2,6:2,7:3,8:1,9:1,10:3,11:2,12:1,13:1,14:2,15:1,16:1,17:1,18:2,19:1,20:1,21:1,22:1,
+      23:2,24:3,25:1,26:1,27:2,28:1,29:3,30:4,31:2,32:5,33:1,34:2,35:3,36:1,37:2},
+  2: {1:1,2:2,3:4,4:2,5:1,6:1,7:2,8:3,9:2,10:1,11:3,12:1,13:2,14:1,15:1,16:2,17:1,18:1,19:2,20:1,21:1,22:2,
+      23:1,24:2,25:1,26:1,27:3,28:2,29:2,30:3,31:1,32:4,33:2,34:1,35:4,36:1,37:3},
 };
 
 const MEETS = [
   {id:1,name:"Wanda DL: Doha",        loc:"Doha, Qatar",          mo:"APR",dy:"25",date:"2026-04-25",status:"completed",
-   disc:["100m","200m","800m","1500m","400mH","110mH","5000m","Pole Vault","Shot Put","High Jump"]},
+   disc:["100m","200m","400m","800m","1500m","100mH","400mH","Pole Vault","Shot Put","High Jump"]},
   {id:2,name:"Prefontaine Classic",   loc:"Eugene, Oregon, USA",  mo:"MAY",dy:"23",date:"2026-05-23",status:"completed",
-   disc:["100m","200m","800m","1500m","400mH","110mH","5000m","10000m","Pole Vault","Shot Put","High Jump"]},
+   disc:["100m","200m","400m","800m","1500m","100mH","110mH","400mH","5000m","Pole Vault","Shot Put","High Jump"]},
   {id:3,name:"Oslo Bislett Games",    loc:"Oslo, Norway",         mo:"JUN",dy:"1", date:"2026-06-01",status:"live",
-   disc:["100m","200m","800m","1500m","5000m","110mH","400mH","Pole Vault"]},
+   disc:["100m","200m","400m","800m","1500m","100mH","110mH","400mH","5000m","Pole Vault","Shot Put","High Jump"]},
   {id:4,name:"Wanda DL: Paris",       loc:"Paris, France",        mo:"JUN",dy:"14",date:"2026-06-14",status:"upcoming",
-   disc:["100m","200m","800m","1500m","400mH","110mH","5000m","Pole Vault","High Jump","Shot Put"]},
+   disc:["100m","200m","400m","800m","1500m","100mH","400mH","5000m","Pole Vault","High Jump"]},
   {id:5,name:"World Athletics Champs",loc:"Tokyo, Japan",         mo:"AUG",dy:"15",date:"2026-08-15",status:"upcoming",
-   disc:["100m","200m","400m","800m","1500m","5000m","10000m","400mH","110mH","Pole Vault","High Jump","Shot Put"]},
+   disc:["100m","200m","400m","800m","1500m","100mH","110mH","400mH","5000m","Pole Vault","High Jump","Shot Put"]},
 ];
 
 const AI_TEAMS = [
-  {name:"Sprinting Savants",emoji:"⚡",runners:[2,4,6,9,16,20]},
-  {name:"Distance Demons",  emoji:"🏃",runners:[5,7,12,13,18,22]},
-  {name:"Field Day FC",     emoji:"🎯",runners:[3,8,11,14,17,21]},
+  {name:"Sprinting Savants",emoji:"⚡",runners:[2,4,6,9,16,20,23,33,26,30]},
+  {name:"Distance Demons",  emoji:"🏃",runners:[5,7,12,13,18,22,24,34,27,31]},
+  {name:"Field Day FC",     emoji:"🎯",runners:[3,8,11,14,17,21,25,35,28,32]},
 ];
 
 // ── STATE ─────────────────────────────────────────────────────
 
-let S = {teamName:"My Team",myTeam:[],budgetUsed:0,osloSim:false,osloRes:null};
-let filterCat = "all";
+let S = {teamName:"My Team",lineup:{},osloSim:false,osloRes:null};
+let filterCat="all", pickerSlot=null;
 
-function load(){try{const d=localStorage.getItem("ftf");if(d)S={...S,...JSON.parse(d)}}catch(e){}}
-function save(){localStorage.setItem("ftf",JSON.stringify(S))}
+function load(){try{const d=localStorage.getItem("ftf2");if(d)S={...S,...JSON.parse(d)}}catch(e){}
+  if(!S.lineup||typeof S.lineup!=='object')S.lineup={}}
+function save(){localStorage.setItem("ftf2",JSON.stringify(S))}
 
-// ── UTILS ─────────────────────────────────────────────────────
+// ── HELPERS ───────────────────────────────────────────────────
 
 const runner = id => RUNNERS.find(r=>r.id===id);
 const initials = n => n.split(' ').map(p=>p[0]).join('').slice(0,2).toUpperCase();
 const ordinal = n => n===1?'1st':n===2?'2nd':n===3?'3rd':n+'th';
+const lastName = n => n.split(' ').slice(-1)[0].replace('-Levrone','');
+
+const teamIds = () => Object.values(S.lineup).filter(Boolean);
+const isRostered = id => teamIds().includes(id);
+const teamValue = () => teamIds().reduce((s,id)=>s+(runner(id)?.cost||0),0);
+
+// "100mH" lane also accepts men's 110mH
+function slotAccepts(slotEvent,ev){
+  if(slotEvent==='100mH') return ev==='100mH'||ev==='110mH';
+  return slotEvent===ev;
+}
+function athleteFitsLane(athlete,slotEvent){return athlete.events.some(e=>slotAccepts(slotEvent,e))}
+function firstOpenSlotFor(athlete){
+  for(const g of SLOTS){
+    for(let i=0;i<g.count;i++){
+      const key=`${g.event}#${i}`;
+      if(!S.lineup[key] && athleteFitsLane(athlete,g.event)) return key;
+    }
+  }
+  return null;
+}
+function assignSlot(key,id){
+  // remove athlete from any slot they already hold
+  for(const k of Object.keys(S.lineup)) if(S.lineup[k]===id) delete S.lineup[k];
+  S.lineup[key]=id; save(); updateHeader();
+}
+function dropSlot(key){ delete S.lineup[key]; save(); updateHeader(); toast(`Lane cleared.`,'err'); go('myteam'); }
+function dropAthlete(id){
+  const key=Object.keys(S.lineup).find(k=>S.lineup[k]===id);
+  if(key){delete S.lineup[key]; save(); updateHeader();}
+}
 
 function runnerPts(id){
   let p=0;
@@ -392,27 +504,24 @@ function runnerPts(id){
   if(S.osloSim&&S.osloRes?.[id]) p+=PTS[S.osloRes[id]]||0;
   return p;
 }
-
-function teamPts(ids){return ids.reduce((s,id)=>s+runnerPts(id),0)}
+const teamPts = ids => ids.reduce((s,id)=>s+runnerPts(id),0);
 
 function standings(){
   const rows=[
-    {name:S.teamName,pts:teamPts(S.myTeam),isMe:true,runners:S.myTeam},
+    {name:S.teamName,pts:teamPts(teamIds()),isMe:true,runners:teamIds()},
     ...AI_TEAMS.map(t=>({name:t.name,emoji:t.emoji,pts:teamPts(t.runners),isMe:false,runners:t.runners}))
   ];
   return rows.sort((a,b)=>b.pts-a.pts);
 }
-
-function myRank(){return standings().findIndex(t=>t.isMe)+1}
+const myRank = () => standings().findIndex(t=>t.isMe)+1;
 
 function toast(msg,type='ok'){
   const el=document.getElementById('toast');
   el.textContent=msg;el.className=`toast ${type} show`;
   setTimeout(()=>{el.className=`toast ${type}`},2500);
 }
-
 function updateHeader(){
-  document.getElementById('hBudget').textContent=BUDGET-S.budgetUsed;
+  document.getElementById('hValue').textContent=teamValue();
   document.getElementById('hTeamName').textContent=S.teamName;
 }
 
@@ -430,7 +539,7 @@ function go(tab){
   if(tab==='standings')renderStandings();
 }
 
-// ── DRAFT ─────────────────────────────────────────────────────
+// ── ATHLETE POOL (DRAFT) ──────────────────────────────────────
 
 function setF(f){
   filterCat=f;
@@ -441,27 +550,26 @@ function setF(f){
 
 function renderDraft(){
   const q=(document.getElementById('srch')?.value||'').toLowerCase();
-  const rem=BUDGET-S.budgetUsed;
-  document.getElementById('bUsed').textContent=S.budgetUsed;
-  document.getElementById('bRem').textContent=rem;
-  document.getElementById('bRos').textContent=S.myTeam.length;
-  document.getElementById('bBar').style.width=`${(S.budgetUsed/BUDGET)*100}%`;
+  const filled=teamIds().length;
+  document.getElementById('bUsed').textContent=filled;
+  document.getElementById('bRem').textContent=TOTAL_SLOTS-filled;
+  document.getElementById('bRos').textContent=teamValue();
+  document.getElementById('bBar').style.width=`${(filled/TOTAL_SLOTS)*100}%`;
 
   let list=RUNNERS;
   if(filterCat!=='all') list=list.filter(r=>r.cat===filterCat);
   if(q) list=list.filter(r=>r.name.toLowerCase().includes(q)||r.country.toLowerCase().includes(q)||r.events.some(e=>e.toLowerCase().includes(q)));
 
   document.getElementById('draftGrid').innerHTML=list.map(r=>{
-    const on=S.myTeam.includes(r.id);
-    const full=!on&&S.myTeam.length>=MAX_ROSTER;
-    const over=!on&&r.cost>rem;
+    const on=isRostered(r.id);
+    const slot=on?null:firstOpenSlotFor(r);
+    const noLane=!on&&!slot;
     const pts=runnerPts(r.id);
     const col=CAT_COLOR[r.cat];
-    const ini=initials(r.name);
-    let cls='rc'+(on?' drafted':(full||over)?' over':'');
+    let cls='rc'+(on?' drafted':noLane?' over':'');
     return `<div class="${cls}">
       <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px">
-        <div class="rav" style="background:${col}">${ini}</div>
+        <div class="rav" style="background:${col}">${initials(r.name)}</div>
         <div style="flex:1;min-width:0">
           <div class="rname">${r.flag} ${r.name}</div>
           <div class="rcountry">${r.country}</div>
@@ -472,10 +580,10 @@ function renderDraft(){
       <div class="rbio">${r.bio}</div>
       <div style="font-size:11px;color:var(--t2);margin-bottom:10px">Season pts: <strong style="color:var(--or)">${pts}</strong></div>
       <div class="rfoot">
-        <div class="rcost">${r.cost} <span>credits</span></div>
+        <div class="rcost">${r.cost} <span>value</span></div>
         ${on
-          ?`<button class="btn btn-d bsm" onclick="drop(${r.id})">Drop</button>`
-          :`<button class="btn btn-p bsm" ${(full||over)?'disabled':''} onclick="draft(${r.id})">${full?'Roster full':over?'Too costly':'Draft'}</button>`
+          ?`<button class="btn btn-d bsm" onclick="drop(${r.id})">Remove</button>`
+          :`<button class="btn btn-p bsm" ${noLane?'disabled':''} onclick="draft(${r.id})">${noLane?'No open lane':'Add'}</button>`
         }
       </div>
     </div>`;
@@ -483,103 +591,124 @@ function renderDraft(){
 }
 
 function draft(id){
-  if(S.myTeam.length>=MAX_ROSTER){toast('Roster full! Drop someone first.','err');return}
   const r=runner(id); if(!r)return;
-  const rem=BUDGET-S.budgetUsed;
-  if(r.cost>rem){toast(`Need ${r.cost} credits, only ${rem} left.`,'err');return}
-  S.myTeam.push(id); S.budgetUsed+=r.cost; save(); updateHeader(); renderDraft();
-  toast(`✅ ${r.name} drafted!`);
-  if(document.getElementById('sec-dashboard').classList.contains('active')) renderDash();
+  const slot=firstOpenSlotFor(r);
+  if(!slot){toast(`No open ${r.events.join('/')} lane on your track.`,'err');return}
+  assignSlot(slot,id);
+  toast(`✅ ${r.name} added to your lineup!`);
+  refreshAll();
 }
-
 function drop(id){
   const r=runner(id); if(!r)return;
-  S.myTeam=S.myTeam.filter(x=>x!==id); S.budgetUsed-=r.cost; save(); updateHeader();
-  toast(`${r.name} dropped.`,'err');
-  if(document.getElementById('sec-draft').classList.contains('active'))renderDraft();
-  if(document.getElementById('sec-myteam').classList.contains('active'))renderMyTeam();
-  if(document.getElementById('sec-dashboard').classList.contains('active'))renderDash();
+  dropAthlete(id);
+  toast(`${r.name} removed.`,'err');
+  refreshAll();
+}
+function refreshAll(){
+  ['draft','myteam','dashboard','standings'].forEach(t=>{
+    if(document.getElementById('sec-'+t).classList.contains('active')){
+      if(t==='draft')renderDraft();if(t==='myteam')renderMyTeam();
+      if(t==='dashboard')renderDash();if(t==='standings')renderStandings();
+    }
+  });
 }
 
-// ── MY TEAM ───────────────────────────────────────────────────
+// ── PICKER OVERLAY ────────────────────────────────────────────
+
+function openPicker(key,event){
+  pickerSlot={key,event};
+  const label = event==='100mH' ? '100m Hurdles' : (event.endsWith('mH')?event.replace('mH','m Hurdles'):event);
+  document.getElementById('pickerTitle').textContent=`Pick a ${label} athlete`;
+  document.getElementById('pickerSub').textContent=`Tap an athlete to add them to this lane. They'll appear on your team track.`;
+
+  const avail=RUNNERS.filter(r=>athleteFitsLane(r,event)&&!isRostered(r.id));
+  const grid=document.getElementById('pickerGrid');
+  if(!avail.length){
+    grid.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="ic">🤷</div><p>All ${label} athletes are already in your lineup.</p></div>`;
+  } else {
+    grid.innerHTML=avail.map(r=>{
+      const col=CAT_COLOR[r.cat], pts=runnerPts(r.id);
+      return `<div class="rc" style="cursor:pointer" onclick="pickAthlete(${r.id})">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px">
+          <div class="rav" style="background:${col}">${initials(r.name)}</div>
+          <div style="flex:1;min-width:0">
+            <div class="rname">${r.flag} ${r.name}</div>
+            <div class="rcountry">${r.country}</div>
+          </div>
+        </div>
+        <div class="rtags">${r.events.map(e=>`<span class="tag ${r.cat}">${e}</span>`).join('')}</div>
+        <div class="rpb"><strong>PB:</strong> ${r.pb}</div>
+        <div class="rbio">${r.bio}</div>
+        <div class="rfoot">
+          <div style="font-size:11px;color:var(--t2)">Season: <strong style="color:var(--or)">${pts} pts</strong></div>
+          <button class="btn btn-p bsm" onclick="event.stopPropagation();pickAthlete(${r.id})">+ Add</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+  document.getElementById('pickerModal').classList.add('open');
+}
+function pickAthlete(id){
+  if(!pickerSlot)return;
+  const r=runner(id);
+  assignSlot(pickerSlot.key,id);
+  closePicker();
+  toast(`✅ ${r.name} added!`);
+  go('myteam'); // back to full team
+}
+function closePicker(){pickerSlot=null;document.getElementById('pickerModal').classList.remove('open')}
+
+// ── MY TEAM (TRACK) ───────────────────────────────────────────
 
 function renderMyTeam(){
-  const total=teamPts(S.myTeam);
+  const ids=teamIds();
+  const total=teamPts(ids);
   document.getElementById('mtPts').textContent=total;
-  const el=document.getElementById('mtContent');
 
-  if(!S.myTeam.length){
-    el.innerHTML=`<div class="empty"><div class="ic">📋</div><p>Roster is empty. Head to Draft to pick athletes!</p><br><button class="btn btn-p" onclick="go('draft')">Go to Draft →</button></div>`;
-    return;
-  }
+  const filled=ids.length;
+  const stats=`<div class="g4" style="margin-bottom:18px">
+    <div class="scard or"><div class="slabel">Season Points</div><div class="sval">${total}</div></div>
+    <div class="scard bl"><div class="slabel">Lanes Filled</div><div class="sval">${filled}<span style="font-size:15px;color:var(--t3)">/${TOTAL_SLOTS}</span></div></div>
+    <div class="scard gd"><div class="slabel">Team Value</div><div class="sval">${teamValue()}</div></div>
+    <div class="scard gr"><div class="slabel">League Rank</div><div class="sval">#${myRank()}</div></div>
+  </div>`;
 
-  const runners=S.myTeam.map(id=>runner(id)).filter(Boolean);
-
-  const meetRows=[1,2].map(mid=>{
-    const meet=MEETS.find(m=>m.id===mid);
-    const p=runners.reduce((s,r)=>s+(PTS[RESULTS[mid]?.[r.id]]||0),0);
-    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:var(--bg2);border-radius:8px">
-      <span style="font-size:13px">${meet.name}</span>
-      <span style="font-weight:700;color:var(--or)">${p} pts</span>
+  const lanes=SLOTS.map(g=>{
+    const col=EVENT_COLOR[g.event]||'#888';
+    let lf=0;
+    const cells=[];
+    for(let i=0;i<g.count;i++){
+      const key=`${g.event}#${i}`;
+      const id=S.lineup[key];
+      if(id){
+        lf++;
+        const r=runner(id);
+        cells.push(`<div class="slot filled" onclick="openPicker('${key}','${g.event}')" title="Tap to swap">
+          <button class="slot-x" onclick="event.stopPropagation();dropSlot('${key}')" title="Remove">×</button>
+          <div class="slot-av" style="background:${CAT_COLOR[r.cat]}">${initials(r.name)}</div>
+          <div class="slot-name">${r.flag} ${lastName(r.name)}</div>
+          <div class="slot-ev">${g.event}</div>
+          <div class="slot-pts">${runnerPts(id)} pts</div>
+        </div>`);
+      } else {
+        cells.push(`<div class="slot empty" onclick="openPicker('${key}','${g.event}')">
+          <div class="plus">+</div>
+          <div class="slot-ev">${g.event}</div>
+          <div class="slot-hint">Tap to add</div>
+        </div>`);
+      }
+    }
+    const label = g.event==='100mH'?'100m H':g.event==='400mH'?'400m H':g.event;
+    return `<div class="lane">
+      <div class="lane-tag" style="--c:${col}">${label} <small>${lf}/${g.count} filled</small></div>
+      <div class="slots">${cells.join('')}</div>
     </div>`;
   }).join('');
 
-  const osloRow=S.osloSim&&S.osloRes?`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:var(--bg2);border-radius:8px;border:1px solid rgba(231,76,60,.3)">
-      <span style="font-size:13px">Oslo Bislett Games <span style="color:var(--red);font-size:10px">●LIVE</span></span>
-      <span style="font-weight:700;color:var(--or)">${runners.reduce((s,r)=>s+(PTS[S.osloRes[r.id]]||0),0)} pts</span>
-    </div>`:'';
-
-  el.innerHTML=`
-    <div class="g2" style="margin-bottom:20px">
-      <div class="card">
-        <div class="card-title">📊 Points by Event</div>
-        <div style="display:flex;flex-direction:column;gap:8px">
-          ${meetRows}${osloRow}
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--card2);border-radius:8px">
-            <span style="font-weight:700">Total</span>
-            <span style="font-weight:800;font-size:18px;color:var(--or)">${total} pts</span>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">🏅 Roster Info</div>
-        <div style="display:flex;flex-direction:column;gap:6px;font-size:13px">
-          ${[
-            ['Roster size',`${runners.length} / ${MAX_ROSTER}`],
-            ['Budget spent',`<span style="color:var(--or)">${S.budgetUsed} / ${BUDGET} credits</span>`],
-            ['League rank',`<span style="color:var(--gold)">🏆 #${myRank()} of 4</span>`],
-            ['Events scored',`${S.osloSim?3:2} / 5`],
-          ].map(([k,v])=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)"><span style="color:var(--t2)">${k}</span><span>${v}</span></div>`).join('')}
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title">👕 Roster</div>
-      <div class="roc">
-        ${runners.map(r=>{
-          const pts=runnerPts(r.id);
-          const col=CAT_COLOR[r.cat];
-          const ini=initials(r.name);
-          const meetBreak=[1,2].filter(mid=>RESULTS[mid]?.[r.id]).map(mid=>{
-            const pos=RESULTS[mid][r.id];
-            return `<span style="font-size:10px;color:var(--t3)">${MEETS.find(m=>m.id===mid).name.split(':').pop().trim()}: <strong style="color:var(--t2)">${PTS[pos]||0}pts (${ordinal(pos)})</strong></span>`;
-          }).join('');
-          const osloBreak=S.osloSim&&S.osloRes?.[r.id]?`<span style="font-size:10px;color:var(--t3)">Oslo: <strong style="color:var(--red)">${PTS[S.osloRes[r.id]]||0}pts (${ordinal(S.osloRes[r.id])})</strong></span>`:'';
-          return `<div class="rocard">
-            <button class="btn btn-d bsm" style="position:absolute;top:12px;right:12px" onclick="drop(${r.id})">Drop</button>
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-              <div class="rav" style="background:${col};width:40px;height:40px;font-size:13px">${ini}</div>
-              <div>
-                <div style="font-weight:700;font-size:14px">${r.flag} ${r.name}</div>
-                <div style="font-size:11px;color:var(--t2)">${r.country}</div>
-              </div>
-            </div>
-            <div class="rtags" style="margin-bottom:8px">${r.events.map(e=>`<span class="tag ${r.cat}">${e}</span>`).join('')}</div>
-            <div style="display:flex;flex-direction:column;gap:2px;margin-bottom:8px">${meetBreak}${osloBreak}</div>
-            <div class="ro-pts">${pts} <span>pts this season</span></div>
-          </div>`;
-        }).join('')}
-      </div>
+  document.getElementById('mtContent').innerHTML = stats + `
+    <div class="track">
+      <div class="track-head">🏟️ <span>Your Lineup Track</span> <small>— tap a lane to add an athlete from that event</small></div>
+      ${lanes}
     </div>`;
 }
 
@@ -587,43 +716,31 @@ function renderMyTeam(){
 
 function renderEvents(){
   document.getElementById('evtList').innerHTML=MEETS.map(m=>{
-    const comp=m.status==='completed', live=m.status==='live', up=m.status==='upcoming';
+    const comp=m.status==='completed', live=m.status==='live';
     const dateStr=new Date(m.date).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
     const days=Math.ceil((new Date(m.date)-new Date())/86400000);
 
-    let extra='';
-    if(comp){
-      const res=RESULTS[m.id]||{};
-      const items=Object.entries(res).sort(([,a],[,b])=>a-b).slice(0,12).map(([rid,pos])=>{
+    const resultBlock=(res,accent)=>{
+      const items=Object.entries(res).sort(([,a],[,b])=>a-b).slice(0,14).map(([rid,pos])=>{
         const r=runner(+rid); if(!r)return'';
-        const onTeam=S.myTeam.includes(+rid);
+        const onTeam=isRostered(+rid);
         const pc=pos<=3?`p${pos}`:'po';
-        return `<div class="eitem" style="${onTeam?'border:1px solid rgba(255,107,53,.4);background:rgba(255,107,53,.05)':''}">
+        return `<div class="eitem" style="${onTeam?`border:1px solid ${accent};background:rgba(255,107,53,.05)`:''}">
           <div class="pos ${pc}">${pos}</div>
-          <div style="flex:1;min-width:0"><div style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.flag} ${r.name.split(' ').pop()}</div>
+          <div style="flex:1;min-width:0"><div style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.flag} ${lastName(r.name)}</div>
           <div style="font-size:10px;color:var(--t3)">${r.events[0]}</div></div>
           <div style="font-weight:700;color:var(--or);font-size:12px">+${PTS[pos]||0}</div>
         </div>`;
       }).join('');
-      extra=`<div class="eres">${items}</div>`;
-    } else if(live){
-      if(S.osloSim&&S.osloRes){
-        const items=Object.entries(S.osloRes).sort(([,a],[,b])=>a-b).slice(0,12).map(([rid,pos])=>{
-          const r=runner(+rid); if(!r)return'';
-          const onTeam=S.myTeam.includes(+rid);
-          const pc=pos<=3?`p${pos}`:'po';
-          return `<div class="eitem" style="${onTeam?'border:1px solid rgba(231,76,60,.4);background:rgba(231,76,60,.05)':''}">
-            <div class="pos ${pc}">${pos}</div>
-            <div style="flex:1;min-width:0"><div style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.flag} ${r.name.split(' ').pop()}</div>
-            <div style="font-size:10px;color:var(--t3)">${r.events[0]}</div></div>
-            <div style="font-weight:700;color:var(--or);font-size:12px">+${PTS[pos]||0}</div>
-          </div>`;
-        }).join('');
-        extra=`<div class="eres">${items}</div>`;
-      } else {
-        extra=`<div style="margin-top:12px"><p style="font-size:13px;color:var(--t2);margin-bottom:12px">Results coming in! Hit simulate to score your team.</p>
-          <button class="sim-btn" onclick="simOslo()">⚡ Simulate Oslo Results</button></div>`;
-      }
+      return `<div class="eres">${items}</div>`;
+    };
+
+    let extra='';
+    if(comp){ extra=resultBlock(RESULTS[m.id]||{}, 'rgba(255,107,53,.4)'); }
+    else if(live){
+      if(S.osloSim&&S.osloRes){ extra=resultBlock(S.osloRes,'rgba(231,76,60,.4)'); }
+      else extra=`<div style="margin-top:12px"><p style="font-size:13px;color:var(--t2);margin-bottom:12px">Results coming in! Hit simulate to score your team.</p>
+        <button class="sim-btn" onclick="simOslo()">⚡ Simulate Oslo Results</button></div>`;
     } else {
       extra=`<div style="margin-top:10px;font-size:12px;color:var(--t3)">📅 ${days} days away</div>`;
     }
@@ -642,31 +759,22 @@ function renderEvents(){
 }
 
 function simOslo(){
-  // Group runners by their primary event that's in Oslo's disciplines
-  const oslo=MEETS[2];
+  const oslo=MEETS.find(m=>m.status==='live');
   const groups={};
   RUNNERS.forEach(r=>{
     const ev=r.events.find(e=>oslo.disc.includes(e));
-    if(ev){if(!groups[ev])groups[ev]=[];groups[ev].push(r.id);}
+    if(ev){(groups[ev]=groups[ev]||[]).push(r.id);}
   });
-
   const res={};
   Object.values(groups).forEach(ids=>{
-    const scored=ids.map(id=>{
-      const r=runner(id);
-      return {id,score:(10-Math.min(r.rank,9))*10+Math.random()*28};
-    });
+    const scored=ids.map(id=>{const r=runner(id);return{id,score:(10-Math.min(r.rank,9))*10+Math.random()*28}});
     scored.sort((a,b)=>b.score-a.score);
-    scored.forEach((x,i)=>{res[x.id]=i+1});
+    scored.forEach((x,i)=>res[x.id]=i+1);
   });
-
   S.osloSim=true; S.osloRes=res; save();
-  const myPts=S.myTeam.reduce((s,id)=>s+(PTS[res[id]]||0),0);
+  const myPts=teamIds().reduce((s,id)=>s+(PTS[res[id]]||0),0);
   toast(`Oslo results in! Your team scored ${myPts} points! 🏃`);
-  renderEvents();
-  if(document.getElementById('sec-dashboard').classList.contains('active'))renderDash();
-  if(document.getElementById('sec-myteam').classList.contains('active'))renderMyTeam();
-  if(document.getElementById('sec-standings').classList.contains('active'))renderStandings();
+  renderEvents(); refreshAll();
 }
 
 // ── STANDINGS ─────────────────────────────────────────────────
@@ -681,7 +789,7 @@ function renderStandings(){
     <th style="text-align:right">Avg/Meet</th><th style="text-align:right">Athletes</th>
   </tr></thead><tbody>${rows.map((t,i)=>{
     const rn=i+1, rc=rn<=3?`r${rn}`:'ro';
-    const avg=evtCount?( t.pts/evtCount).toFixed(1):'—';
+    const avg=evtCount?(t.pts/evtCount).toFixed(1):'—';
     const em=t.isMe?'🎮':(t.emoji||'🤖');
     return `<tr>
       <td><div class="rnum ${rc}">${rn}</div></td>
@@ -694,7 +802,7 @@ function renderStandings(){
       </div></td>
       <td style="text-align:right;font-weight:800;font-size:16px">${t.pts}</td>
       <td style="text-align:right;color:var(--t2)">${avg}</td>
-      <td style="text-align:right;color:var(--t2)">${t.runners.length}/6</td>
+      <td style="text-align:right;color:var(--t2)">${t.runners.length}</td>
     </tr>`;
   }).join('')}</tbody>`;
 
@@ -705,12 +813,11 @@ function renderStandings(){
       <div style="font-weight:700;margin-bottom:8px">${em} ${t.name}${t.isMe?` <span style="color:var(--or)">(You)</span>`:''}</div>
       <div style="display:flex;flex-wrap:wrap;gap:6px">
         ${aths.length?aths.map(r=>{
-          const pts=runnerPts(r.id);
           const col=CAT_COLOR[r.cat];
           return `<div style="display:flex;align-items:center;gap:6px;padding:4px 10px;background:var(--bg2);border-radius:8px;font-size:12px">
             <div style="width:22px;height:22px;border-radius:50%;background:${col};display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff">${initials(r.name)}</div>
-            <span>${r.flag} ${r.name.split(' ').pop()}</span>
-            <span style="color:var(--or);font-weight:700">${pts}pts</span>
+            <span>${r.flag} ${lastName(r.name)}</span>
+            <span style="color:var(--or);font-weight:700">${runnerPts(r.id)}pts</span>
           </div>`;
         }).join(''):`<span style="color:var(--t3);font-size:12px">No athletes drafted</span>`}
       </div>
@@ -721,19 +828,18 @@ function renderStandings(){
 // ── DASHBOARD ─────────────────────────────────────────────────
 
 function renderDash(){
-  const total=teamPts(S.myTeam);
-  document.getElementById('dPts').textContent=total;
+  const ids=teamIds();
+  document.getElementById('dPts').textContent=teamPts(ids);
   document.getElementById('dRank').textContent=`#${myRank()}`;
-  document.getElementById('dRos').textContent=S.myTeam.length;
-  document.getElementById('dBud').textContent=BUDGET-S.budgetUsed;
-  document.getElementById('dDraftPrompt').style.display=S.myTeam.length?'none':'block';
+  document.getElementById('dRos').textContent=ids.length;
+  document.getElementById('dBud').textContent=teamValue();
+  document.getElementById('dDraftPrompt').style.display=ids.length?'none':'block';
 
-  // Performers
   const pEl=document.getElementById('dPerfs');
-  if(!S.myTeam.length){
-    pEl.innerHTML=`<div class="empty" style="padding:20px"><div class="ic">📋</div><p>Draft athletes to see performers</p></div>`;
+  if(!ids.length){
+    pEl.innerHTML=`<div class="empty" style="padding:20px"><div class="ic">🏟️</div><p>Build your lineup to see performers</p></div>`;
   } else {
-    const sorted=S.myTeam.map(id=>({r:runner(id),pts:runnerPts(id)})).filter(x=>x.r).sort((a,b)=>b.pts-a.pts).slice(0,5);
+    const sorted=ids.map(id=>({r:runner(id),pts:runnerPts(id)})).filter(x=>x.r).sort((a,b)=>b.pts-a.pts).slice(0,5);
     pEl.innerHTML=`<div style="display:flex;flex-direction:column;gap:8px">${sorted.map(({r,pts})=>`
       <div class="perf-row">
         <div class="perf-av" style="background:${CAT_COLOR[r.cat]}">${initials(r.name)}</div>
@@ -745,7 +851,6 @@ function renderDash(){
       </div>`).join('')}</div>`;
   }
 
-  // Next event
   const nxt=MEETS.find(m=>m.status==='live')||MEETS.find(m=>m.status==='upcoming');
   if(nxt){
     document.getElementById('dEvtName').textContent=nxt.name;
@@ -769,18 +874,17 @@ function openNameModal(){
   document.getElementById('nameModal').classList.add('open');
   setTimeout(()=>document.getElementById('nameInput').focus(),100);
 }
-
 function saveName(){
   const v=document.getElementById('nameInput').value.trim();
   if(v){S.teamName=v;save();updateHeader();toast(`Team name: "${v}"!`);}
-  closeModal();
-  if(document.getElementById('sec-standings').classList.contains('active'))renderStandings();
+  closeModal(); refreshAll();
 }
-
 function closeModal(){document.getElementById('nameModal').classList.remove('open')}
 
 document.getElementById('nameModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal()});
+document.getElementById('pickerModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closePicker()});
 document.getElementById('nameInput').addEventListener('keydown',e=>{if(e.key==='Enter')saveName();if(e.key==='Escape')closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closePicker()});
 
 // ── INIT ──────────────────────────────────────────────────────
 
