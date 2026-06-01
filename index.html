@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fantasy Track & Field</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --or:#FF6B35;--or2:#CC5522;--gold:#F7B731;--blue:#4361EE;--purple:#9B59B6;
+  --green:#27AE60;--red:#E74C3C;--bg:#111113;--bg2:#18181C;--card:#1E1E24;
+  --card2:#252530;--border:#2E2E38;--text:#F0F0F2;--t2:#A0A0B0;--t3:#606070;
+}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;font-size:14px}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,#1a0800,#2d1200 40%,#0a0a20);border-bottom:3px solid var(--or);
+  padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px;
+  position:sticky;top:0;z-index:200;gap:16px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:36px;height:36px;background:var(--or);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.logo-text{font-size:18px;font-weight:800;letter-spacing:-0.5px}
+.logo-text span{color:var(--or)}
+.hdr-r{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.bud-badge{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:13px;display:flex;align-items:center;gap:5px}
+.bud-badge .cred{color:var(--gold);font-weight:700}
+.team-badge{background:var(--or);color:#fff;border-radius:20px;padding:6px 14px;font-size:13px;font-weight:600;cursor:pointer}
+
+/* NAV */
+.nav{background:var(--bg2);border-bottom:1px solid var(--border);display:flex;padding:0 24px;overflow-x:auto}
+.ntab{padding:14px 18px;cursor:pointer;color:var(--t2);font-size:14px;font-weight:500;
+  border-bottom:3px solid transparent;white-space:nowrap;transition:all .15s;user-select:none}
+.ntab:hover{color:var(--text)}
+.ntab.active{color:var(--or);border-bottom-color:var(--or)}
+
+/* MAIN */
+.main{max-width:1200px;margin:0 auto;padding:24px}
+.sec{display:none}.sec.active{display:block}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.card-title{font-size:15px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.g2,.g3,.g4{grid-template-columns:1fr}.main{padding:16px}.hdr{padding:0 16px}}
+
+/* STAT CARDS */
+.scard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 20px}
+.scard .slabel{font-size:11px;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.scard .sval{font-size:28px;font-weight:800;line-height:1}
+.scard .ssub{font-size:12px;color:var(--t3);margin-top:4px}
+.scard.or .sval{color:var(--or)}.scard.gd .sval{color:var(--gold)}.scard.bl .sval{color:var(--blue)}.scard.gr .sval{color:var(--green)}
+
+/* RUNNER CARDS */
+.rg{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.rc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;transition:all .15s;position:relative;overflow:hidden}
+.rc:hover{background:var(--card2);border-color:var(--or)}
+.rc.drafted{border-color:var(--green);background:#1a2a1a}
+.rc.drafted::after{content:'✓ On Team';position:absolute;top:8px;right:8px;background:var(--green);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px}
+.rc.over{opacity:.45;pointer-events:none}
+.rav{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:#fff}
+.rname{font-weight:700;font-size:14px;margin-bottom:2px}
+.rcountry{font-size:12px;color:var(--t2);margin-bottom:8px}
+.rtags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.tag{font-size:10px;padding:2px 7px;border-radius:8px;font-weight:600}
+.tag.sprint{background:rgba(255,107,53,.2);color:var(--or)}
+.tag.middle{background:rgba(67,97,238,.2);color:#7b9fff}
+.tag.distance{background:rgba(155,89,182,.2);color:#c39bd3}
+.tag.hurdles{background:rgba(231,76,60,.2);color:#f1948a}
+.tag.field{background:rgba(39,174,96,.2);color:#82e0aa}
+.rpb{font-size:11px;color:var(--t3);margin-bottom:8px}
+.rpb strong{color:var(--t2)}
+.rbio{font-size:11px;color:var(--t3);margin-bottom:10px;line-height:1.4}
+.rfoot{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.rcost{font-size:16px;font-weight:800;color:var(--gold)}
+.rcost span{font-size:10px;font-weight:400;color:var(--t3)}
+
+/* BUTTONS */
+.btn{padding:7px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:none;transition:all .15s}
+.btn-p{background:var(--or);color:#fff}.btn-p:hover{background:var(--or2)}
+.btn-d{background:var(--red);color:#fff}.btn-d:hover{background:#c0392b}
+.btn-o{background:transparent;border:1px solid var(--border);color:var(--t2)}.btn-o:hover{border-color:var(--or);color:var(--or)}
+.bsm{padding:5px 10px;font-size:11px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* FILTER */
+.fbar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.fbtn{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;
+  border:1px solid var(--border);background:var(--card);color:var(--t2);transition:all .15s}
+.fbtn:hover{border-color:var(--or);color:var(--or)}
+.fbtn.active{background:var(--or);color:#fff;border-color:var(--or)}
+
+/* BUDGET BAR */
+.budbar{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:16px}
+.budbar-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.budbar-nums{display:flex;gap:16px;font-size:12px;color:var(--t2)}
+.budbar-nums .used{color:var(--or);font-weight:700}.budbar-nums .rem{color:var(--gold);font-weight:700}
+.budbar-track{height:8px;background:var(--bg2);border-radius:4px;overflow:hidden}
+.budbar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--or),var(--gold));transition:width .3s}
+
+/* ROSTER */
+.roc{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.rocard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;position:relative}
+.ro-pts{font-size:24px;font-weight:800;color:var(--or);margin-top:8px}
+.ro-pts span{font-size:12px;color:var(--t3);font-weight:400}
+
+/* STATUS BADGES */
+.sbadge{display:inline-block;padding:2px 9px;border-radius:10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.sbadge.completed{background:rgba(39,174,96,.2);color:var(--green)}
+.sbadge.live{background:rgba(231,76,60,.2);color:var(--red);animation:pulse 1.5s infinite}
+.sbadge.upcoming{background:rgba(67,97,238,.2);color:#7b9fff}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* EVENTS */
+.ecard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;display:flex;gap:16px}
+.edate{background:var(--card2);border-radius:8px;padding:8px 12px;text-align:center;flex-shrink:0;min-width:56px}
+.edate .mo{font-size:10px;text-transform:uppercase;color:var(--t2)}
+.edate .dy{font-size:24px;font-weight:800;line-height:1}
+.einfo{flex:1}
+.ename{font-weight:700;font-size:15px;margin-bottom:2px}
+.eloc{font-size:12px;color:var(--t2);margin-bottom:8px}
+.eres{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:5px;margin-top:12px}
+.eitem{display:flex;align-items:center;gap:6px;font-size:12px;padding:4px 8px;background:var(--bg2);border-radius:6px}
+.pos{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0}
+.pos.p1{background:#F7B731;color:#000}.pos.p2{background:#BDC3C7;color:#000}.pos.p3{background:#E67E22;color:#fff}.pos.po{background:var(--card2);color:var(--t2)}
+.disc{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.dchip{font-size:10px;padding:2px 7px;background:var(--bg2);border-radius:6px;color:var(--t2)}
+
+/* STANDINGS */
+.stbl{width:100%;border-collapse:collapse}
+.stbl th{text-align:left;padding:10px 14px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);border-bottom:1px solid var(--border)}
+.stbl td{padding:12px 14px;border-bottom:1px solid var(--border)}
+.stbl tr:last-child td{border-bottom:none}
+.stbl tr:hover td{background:var(--card2)}
+.rnum{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
+.rnum.r1{background:var(--gold);color:#000}.rnum.r2{background:#BDC3C7;color:#000}.rnum.r3{background:#E67E22;color:#fff}.rnum.ro{background:var(--card2);color:var(--t2)}
+
+/* DASH */
+.devt{background:linear-gradient(135deg,#1a0800,#2a1500);border:1px solid var(--or);border-radius:12px;padding:20px;position:relative;overflow:hidden}
+.devt::before{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,107,53,.1)}
+.perf-row{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--bg2);border-radius:8px}
+.perf-av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;color:#fff;flex-shrink:0}
+
+/* SEARCH */
+.srch{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;color:var(--text);font-size:14px;width:220px;outline:none;transition:border-color .15s}
+.srch::placeholder{color:var(--t3)}.srch:focus{border-color:var(--or)}
+
+/* MODAL */
+.mover{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;display:none;align-items:center;justify-content:center}
+.mover.open{display:flex}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;max-width:480px;width:calc(100% - 32px)}
+.mtitle{font-size:18px;font-weight:800;margin-bottom:4px}
+.msub{color:var(--t2);font-size:13px;margin-bottom:20px}
+.mact{display:flex;gap:8px;margin-top:20px;justify-content:flex-end}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--card2);border:1px solid var(--border);border-radius:10px;
+  padding:12px 18px;font-size:13px;font-weight:500;transform:translateY(80px);opacity:0;transition:all .3s;z-index:1000;max-width:300px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.ok{border-color:var(--green);color:var(--green)}.toast.err{border-color:var(--red);color:var(--red)}
+
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.sec-title{font-size:20px;font-weight:800}
+.empty{text-align:center;padding:48px 24px;color:var(--t3)}
+.empty .ic{font-size:48px;margin-bottom:12px}
+
+.sim-btn{background:linear-gradient(135deg,var(--or),var(--gold));color:#fff;border:none;border-radius:10px;
+  padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;transition:opacity .15s}
+.sim-btn:hover{opacity:.9}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="logo">
+    <div class="logo-icon">🏃</div>
+    <div class="logo-text">Fantasy <span>Track & Field</span></div>
+  </div>
+  <div class="hdr-r">
+    <div class="bud-badge">💰 <span class="cred" id="hBudget">100</span> <span style="color:var(--t3)">credits</span></div>
+    <div class="team-badge" onclick="openNameModal()">✏️ <span id="hTeamName">My Team</span></div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="ntab active" data-tab="dashboard" onclick="go('dashboard')">🏠 Dashboard</div>
+  <div class="ntab" data-tab="draft" onclick="go('draft')">📋 Draft</div>
+  <div class="ntab" data-tab="myteam" onclick="go('myteam')">👕 My Team</div>
+  <div class="ntab" data-tab="events" onclick="go('events')">🏟️ Events</div>
+  <div class="ntab" data-tab="standings" onclick="go('standings')">🏆 Standings</div>
+</nav>
+
+<main class="main">
+
+<!-- DASHBOARD -->
+<section class="sec active" id="sec-dashboard">
+  <div class="sec-hdr">
+    <h1 class="sec-title">Dashboard</h1>
+    <span style="font-size:13px;color:var(--t2)">2026 Diamond League Season</span>
+  </div>
+  <div class="g4" style="margin-bottom:20px">
+    <div class="scard or"><div class="slabel">Your Points</div><div class="sval" id="dPts">0</div><div class="ssub">all time</div></div>
+    <div class="scard gd"><div class="slabel">League Rank</div><div class="sval" id="dRank">—</div><div class="ssub">of 4 teams</div></div>
+    <div class="scard bl"><div class="slabel">Roster Size</div><div class="sval" id="dRos">0</div><div class="ssub">of 6 max</div></div>
+    <div class="scard gr"><div class="slabel">Budget Left</div><div class="sval" id="dBud">100</div><div class="ssub">credits</div></div>
+  </div>
+  <div class="g2" style="margin-bottom:20px">
+    <div class="devt">
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--or);margin-bottom:6px">Next Event</div>
+      <div style="font-size:18px;font-weight:800;margin-bottom:2px" id="dEvtName">Oslo Bislett Games</div>
+      <div style="font-size:13px;color:var(--t2);margin-bottom:12px" id="dEvtInfo">Oslo, Norway · June 1, 2026</div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span class="sbadge live" id="dEvtBadge">🔴 LIVE</span>
+        <span style="font-size:12px;color:var(--t2)" id="dEvtHint"></span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">⭐ Your Top Performers</div>
+      <div id="dPerfs">
+        <div class="empty" style="padding:20px"><div class="ic">📋</div><p>Draft athletes to see performers</p></div>
+      </div>
+    </div>
+  </div>
+  <div id="dDraftPrompt" class="card" style="text-align:center;padding:32px">
+    <div style="font-size:40px;margin-bottom:12px">🏃‍♂️</div>
+    <div style="font-size:17px;font-weight:700;margin-bottom:6px">Build Your Team</div>
+    <div style="font-size:13px;color:var(--t2);margin-bottom:16px">You have 100 credits. Draft up to 6 world-class athletes!</div>
+    <button class="btn btn-p" onclick="go('draft')">Go to Draft Room →</button>
+  </div>
+</section>
+
+<!-- DRAFT -->
+<section class="sec" id="sec-draft">
+  <div class="sec-hdr">
+    <h1 class="sec-title">Draft Room</h1>
+    <input class="srch" id="srch" placeholder="🔍 Search athletes..." oninput="renderDraft()">
+  </div>
+  <div class="budbar">
+    <div class="budbar-hdr">
+      <span style="font-size:13px;font-weight:700">Budget</span>
+      <div class="budbar-nums">
+        <span>Used: <span class="used" id="bUsed">0</span></span>
+        <span>Remaining: <span class="rem" id="bRem">100</span></span>
+        <span style="color:var(--t3)">Roster: <span id="bRos">0</span>/6</span>
+      </div>
+    </div>
+    <div class="budbar-track"><div class="budbar-fill" id="bBar" style="width:0%"></div></div>
+  </div>
+  <div class="fbar">
+    <span style="font-size:12px;color:var(--t2);font-weight:600">Filter:</span>
+    <button class="fbtn active" data-f="all" onclick="setF('all')">All</button>
+    <button class="fbtn" data-f="sprint" onclick="setF('sprint')">🟠 Sprints</button>
+    <button class="fbtn" data-f="middle" onclick="setF('middle')">🔵 Middle</button>
+    <button class="fbtn" data-f="distance" onclick="setF('distance')">🟣 Distance</button>
+    <button class="fbtn" data-f="hurdles" onclick="setF('hurdles')">🔴 Hurdles</button>
+    <button class="fbtn" data-f="field" onclick="setF('field')">🟢 Field</button>
+  </div>
+  <div class="rg" id="draftGrid"></div>
+</section>
+
+<!-- MY TEAM -->
+<section class="sec" id="sec-myteam">
+  <div class="sec-hdr">
+    <h1 class="sec-title">My Team</h1>
+    <span style="font-size:13px;color:var(--t2)">Season total: <strong style="color:var(--or)" id="mtPts">0</strong> pts</span>
+  </div>
+  <div id="mtContent"></div>
+</section>
+
+<!-- EVENTS -->
+<section class="sec" id="sec-events">
+  <div class="sec-hdr">
+    <h1 class="sec-title">Events</h1>
+    <span style="font-size:13px;color:var(--t2)">2026 Season Calendar</span>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:12px" id="evtList"></div>
+</section>
+
+<!-- STANDINGS -->
+<section class="sec" id="sec-standings">
+  <div class="sec-hdr">
+    <h1 class="sec-title">Standings</h1>
+    <span style="font-size:13px;color:var(--t2)">After <span id="stEvts">2</span> events</span>
+  </div>
+  <div class="card" style="margin-bottom:16px"><table class="stbl" id="stTbl"></table></div>
+  <div class="card"><div class="card-title">📊 Team Rosters</div><div id="stBreak"></div></div>
+</section>
+
+</main>
+
+<!-- TEAM NAME MODAL -->
+<div class="mover" id="nameModal">
+  <div class="modal">
+    <div class="mtitle">Edit Team Name</div>
+    <div class="msub">Give your fantasy team a great name</div>
+    <input class="srch" id="nameInput" style="width:100%;margin-bottom:8px" placeholder="Enter team name..." maxlength="30">
+    <div class="mact">
+      <button class="btn btn-o" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-p" onclick="saveName()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────
+
+const BUDGET = 100, MAX_ROSTER = 6;
+
+const PTS = {1:15,2:12,3:10,4:8,5:6,6:5,7:4,8:3};
+
+const CAT_COLOR = {sprint:'#FF6B35',middle:'#4361EE',distance:'#9B59B6',hurdles:'#E74C3C',field:'#27AE60'};
+
+const RUNNERS = [
+  // Sprints – Men
+  {id:1,  name:"Noah Lyles",            flag:"🇺🇸",country:"USA",         events:["100m","200m"],   cat:"sprint",  cost:22,rank:1, pb:"9.83 (100m)",    bio:"Reigning World 100m & 200m Champion"},
+  {id:2,  name:"Fred Kerley",           flag:"🇺🇸",country:"USA",         events:["100m"],          cat:"sprint",  cost:18,rank:2, pb:"9.84 (100m)",    bio:"2022 World 100m Champion"},
+  {id:3,  name:"Marcell Jacobs",        flag:"🇮🇹",country:"Italy",       events:["100m"],          cat:"sprint",  cost:13,rank:5, pb:"9.80 (100m)",    bio:"Olympic 100m Champion, Tokyo 2020"},
+  {id:4,  name:"Erriyon Knighton",      flag:"🇺🇸",country:"USA",         events:["200m"],          cat:"sprint",  cost:16,rank:3, pb:"19.49 (200m)",   bio:"Youngest ever sub-19.50 in 200m"},
+  {id:5,  name:"Letsile Tebogo",        flag:"🇧🇼",country:"Botswana",    events:["200m"],          cat:"sprint",  cost:17,rank:2, pb:"19.46 (200m)",   bio:"Olympic 200m Champion, Paris 2024"},
+  // Sprints – Women
+  {id:6,  name:"Sha'Carri Richardson",  flag:"🇺🇸",country:"USA",         events:["100m","200m"],   cat:"sprint",  cost:20,rank:1, pb:"10.71 (100m)",   bio:"World 100m Champion, fan favourite"},
+  {id:7,  name:"Shericka Jackson",      flag:"🇯🇲",country:"Jamaica",     events:["100m","200m"],   cat:"sprint",  cost:18,rank:2, pb:"21.41 (200m)",   bio:"World 200m record holder"},
+  {id:8,  name:"Julien Alfred",         flag:"🇱🇨",country:"St. Lucia",   events:["100m"],          cat:"sprint",  cost:17,rank:1, pb:"10.72 (100m)",   bio:"Olympic 100m Champion, Paris 2024"},
+  // Middle distance
+  {id:9,  name:"Jakob Ingebrigtsen",    flag:"🇳🇴",country:"Norway",      events:["1500m","5000m"], cat:"middle",  cost:23,rank:1, pb:"3:26.73 (1500m)",bio:"5× European Champion, Olympic 1500m gold"},
+  {id:10, name:"Josh Kerr",             flag:"🇬🇧",country:"Great Britain",events:["1500m"],         cat:"middle",  cost:16,rank:2, pb:"3:26.95 (1500m)",bio:"World 1500m Champion, Budapest 2023"},
+  {id:11, name:"Cole Hocker",           flag:"🇺🇸",country:"USA",         events:["1500m"],         cat:"middle",  cost:14,rank:3, pb:"3:27.65 (1500m)",bio:"Olympic 1500m Champion, Paris 2024"},
+  {id:12, name:"Faith Kipyegon",        flag:"🇰🇪",country:"Kenya",       events:["1500m","5000m"], cat:"middle",  cost:24,rank:1, pb:"3:49.11 (1500m)",bio:"3× Olympic 1500m Champion, all-time great"},
+  {id:13, name:"Keely Hodgkinson",      flag:"🇬🇧",country:"Great Britain",events:["800m"],          cat:"middle",  cost:19,rank:1, pb:"1:55.16 (800m)", bio:"Olympic 800m Champion, Paris 2024"},
+  {id:14, name:"Athing Mu",             flag:"🇺🇸",country:"USA",         events:["800m"],          cat:"middle",  cost:18,rank:2, pb:"1:55.04 (800m)", bio:"Two-time Olympic 800m medallist"},
+  // Hurdles
+  {id:15, name:"Sydney McLaughlin-Levrone",flag:"🇺🇸",country:"USA",      events:["400mH"],         cat:"hurdles", cost:25,rank:1, pb:"50.65 (400mH)",  bio:"400mH world record holder, virtually unbeatable"},
+  {id:16, name:"Rai Benjamin",           flag:"🇺🇸",country:"USA",        events:["400mH"],         cat:"hurdles", cost:19,rank:1, pb:"46.17 (400mH)",  bio:"Olympic 400mH Champion, Paris 2024"},
+  {id:17, name:"Grant Holloway",         flag:"🇺🇸",country:"USA",        events:["110mH"],         cat:"hurdles", cost:18,rank:1, pb:"12.98 (110mH)",  bio:"2× World 110mH Champion"},
+  // Distance
+  {id:18, name:"Sifan Hassan",           flag:"🇳🇱",country:"Netherlands",events:["5000m","10000m"],cat:"distance",cost:17,rank:1, pb:"14:22.12 (5000m)",bio:"3× Olympic medallist, marathon and track star"},
+  {id:19, name:"Beatrice Chebet",        flag:"🇰🇪",country:"Kenya",      events:["5000m","10000m"],cat:"distance",cost:16,rank:1, pb:"14:23.27 (5000m)",bio:"Olympic 5000m & 10000m double Champion"},
+  // Field
+  {id:20, name:"Mondo Duplantis",        flag:"🇸🇪",country:"Sweden",     events:["Pole Vault"],    cat:"field",   cost:22,rank:1, pb:"6.26m",          bio:"World record holder, Olympic Pole Vault champion"},
+  {id:21, name:"Ryan Crouser",           flag:"🇺🇸",country:"USA",        events:["Shot Put"],      cat:"field",   cost:14,rank:1, pb:"23.56m",         bio:"3× Olympic Shot Put Champion"},
+  {id:22, name:"Yaroslava Mahuchikh",    flag:"🇺🇦",country:"Ukraine",    events:["High Jump"],     cat:"field",   cost:17,rank:1, pb:"2.10m",          bio:"Olympic & World High Jump Champion, world record"},
+];
+
+// Completed meet results: meetId → { runnerId: finishPosition }
+const RESULTS = {
+  1: {1:3,2:1,3:2,4:1,5:2,6:2,7:3,8:1,9:1,10:3,11:2,12:1,13:1,14:2,15:1,16:1,17:1,18:2,19:1,20:1,21:1,22:1},
+  2: {1:1,2:2,3:4,4:2,5:1,6:1,7:2,8:3,9:2,10:1,11:3,12:1,13:2,14:1,15:1,16:2,17:1,18:1,19:2,20:1,21:1,22:2},
+};
+
+const MEETS = [
+  {id:1,name:"Wanda DL: Doha",        loc:"Doha, Qatar",          mo:"APR",dy:"25",date:"2026-04-25",status:"completed",
+   disc:["100m","200m","800m","1500m","400mH","110mH","5000m","Pole Vault","Shot Put","High Jump"]},
+  {id:2,name:"Prefontaine Classic",   loc:"Eugene, Oregon, USA",  mo:"MAY",dy:"23",date:"2026-05-23",status:"completed",
+   disc:["100m","200m","800m","1500m","400mH","110mH","5000m","10000m","Pole Vault","Shot Put","High Jump"]},
+  {id:3,name:"Oslo Bislett Games",    loc:"Oslo, Norway",         mo:"JUN",dy:"1", date:"2026-06-01",status:"live",
+   disc:["100m","200m","800m","1500m","5000m","110mH","400mH","Pole Vault"]},
+  {id:4,name:"Wanda DL: Paris",       loc:"Paris, France",        mo:"JUN",dy:"14",date:"2026-06-14",status:"upcoming",
+   disc:["100m","200m","800m","1500m","400mH","110mH","5000m","Pole Vault","High Jump","Shot Put"]},
+  {id:5,name:"World Athletics Champs",loc:"Tokyo, Japan",         mo:"AUG",dy:"15",date:"2026-08-15",status:"upcoming",
+   disc:["100m","200m","400m","800m","1500m","5000m","10000m","400mH","110mH","Pole Vault","High Jump","Shot Put"]},
+];
+
+const AI_TEAMS = [
+  {name:"Sprinting Savants",emoji:"⚡",runners:[2,4,6,9,16,20]},
+  {name:"Distance Demons",  emoji:"🏃",runners:[5,7,12,13,18,22]},
+  {name:"Field Day FC",     emoji:"🎯",runners:[3,8,11,14,17,21]},
+];
+
+// ── STATE ─────────────────────────────────────────────────────
+
+let S = {teamName:"My Team",myTeam:[],budgetUsed:0,osloSim:false,osloRes:null};
+let filterCat = "all";
+
+function load(){try{const d=localStorage.getItem("ftf");if(d)S={...S,...JSON.parse(d)}}catch(e){}}
+function save(){localStorage.setItem("ftf",JSON.stringify(S))}
+
+// ── UTILS ─────────────────────────────────────────────────────
+
+const runner = id => RUNNERS.find(r=>r.id===id);
+const initials = n => n.split(' ').map(p=>p[0]).join('').slice(0,2).toUpperCase();
+const ordinal = n => n===1?'1st':n===2?'2nd':n===3?'3rd':n+'th';
+
+function runnerPts(id){
+  let p=0;
+  [1,2].forEach(mid=>{if(RESULTS[mid]?.[id]) p+=PTS[RESULTS[mid][id]]||0});
+  if(S.osloSim&&S.osloRes?.[id]) p+=PTS[S.osloRes[id]]||0;
+  return p;
+}
+
+function teamPts(ids){return ids.reduce((s,id)=>s+runnerPts(id),0)}
+
+function standings(){
+  const rows=[
+    {name:S.teamName,pts:teamPts(S.myTeam),isMe:true,runners:S.myTeam},
+    ...AI_TEAMS.map(t=>({name:t.name,emoji:t.emoji,pts:teamPts(t.runners),isMe:false,runners:t.runners}))
+  ];
+  return rows.sort((a,b)=>b.pts-a.pts);
+}
+
+function myRank(){return standings().findIndex(t=>t.isMe)+1}
+
+function toast(msg,type='ok'){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.className=`toast ${type} show`;
+  setTimeout(()=>{el.className=`toast ${type}`},2500);
+}
+
+function updateHeader(){
+  document.getElementById('hBudget').textContent=BUDGET-S.budgetUsed;
+  document.getElementById('hTeamName').textContent=S.teamName;
+}
+
+// ── NAV ───────────────────────────────────────────────────────
+
+function go(tab){
+  document.querySelectorAll('.ntab').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.sec').forEach(e=>e.classList.remove('active'));
+  document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+  document.getElementById(`sec-${tab}`).classList.add('active');
+  if(tab==='dashboard')renderDash();
+  if(tab==='draft')renderDraft();
+  if(tab==='myteam')renderMyTeam();
+  if(tab==='events')renderEvents();
+  if(tab==='standings')renderStandings();
+}
+
+// ── DRAFT ─────────────────────────────────────────────────────
+
+function setF(f){
+  filterCat=f;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+  document.querySelector(`[data-f="${f}"]`).classList.add('active');
+  renderDraft();
+}
+
+function renderDraft(){
+  const q=(document.getElementById('srch')?.value||'').toLowerCase();
+  const rem=BUDGET-S.budgetUsed;
+  document.getElementById('bUsed').textContent=S.budgetUsed;
+  document.getElementById('bRem').textContent=rem;
+  document.getElementById('bRos').textContent=S.myTeam.length;
+  document.getElementById('bBar').style.width=`${(S.budgetUsed/BUDGET)*100}%`;
+
+  let list=RUNNERS;
+  if(filterCat!=='all') list=list.filter(r=>r.cat===filterCat);
+  if(q) list=list.filter(r=>r.name.toLowerCase().includes(q)||r.country.toLowerCase().includes(q)||r.events.some(e=>e.toLowerCase().includes(q)));
+
+  document.getElementById('draftGrid').innerHTML=list.map(r=>{
+    const on=S.myTeam.includes(r.id);
+    const full=!on&&S.myTeam.length>=MAX_ROSTER;
+    const over=!on&&r.cost>rem;
+    const pts=runnerPts(r.id);
+    const col=CAT_COLOR[r.cat];
+    const ini=initials(r.name);
+    let cls='rc'+(on?' drafted':(full||over)?' over':'');
+    return `<div class="${cls}">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px">
+        <div class="rav" style="background:${col}">${ini}</div>
+        <div style="flex:1;min-width:0">
+          <div class="rname">${r.flag} ${r.name}</div>
+          <div class="rcountry">${r.country}</div>
+        </div>
+      </div>
+      <div class="rtags">${r.events.map(e=>`<span class="tag ${r.cat}">${e}</span>`).join('')}</div>
+      <div class="rpb"><strong>PB:</strong> ${r.pb}</div>
+      <div class="rbio">${r.bio}</div>
+      <div style="font-size:11px;color:var(--t2);margin-bottom:10px">Season pts: <strong style="color:var(--or)">${pts}</strong></div>
+      <div class="rfoot">
+        <div class="rcost">${r.cost} <span>credits</span></div>
+        ${on
+          ?`<button class="btn btn-d bsm" onclick="drop(${r.id})">Drop</button>`
+          :`<button class="btn btn-p bsm" ${(full||over)?'disabled':''} onclick="draft(${r.id})">${full?'Roster full':over?'Too costly':'Draft'}</button>`
+        }
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function draft(id){
+  if(S.myTeam.length>=MAX_ROSTER){toast('Roster full! Drop someone first.','err');return}
+  const r=runner(id); if(!r)return;
+  const rem=BUDGET-S.budgetUsed;
+  if(r.cost>rem){toast(`Need ${r.cost} credits, only ${rem} left.`,'err');return}
+  S.myTeam.push(id); S.budgetUsed+=r.cost; save(); updateHeader(); renderDraft();
+  toast(`✅ ${r.name} drafted!`);
+  if(document.getElementById('sec-dashboard').classList.contains('active')) renderDash();
+}
+
+function drop(id){
+  const r=runner(id); if(!r)return;
+  S.myTeam=S.myTeam.filter(x=>x!==id); S.budgetUsed-=r.cost; save(); updateHeader();
+  toast(`${r.name} dropped.`,'err');
+  if(document.getElementById('sec-draft').classList.contains('active'))renderDraft();
+  if(document.getElementById('sec-myteam').classList.contains('active'))renderMyTeam();
+  if(document.getElementById('sec-dashboard').classList.contains('active'))renderDash();
+}
+
+// ── MY TEAM ───────────────────────────────────────────────────
+
+function renderMyTeam(){
+  const total=teamPts(S.myTeam);
+  document.getElementById('mtPts').textContent=total;
+  const el=document.getElementById('mtContent');
+
+  if(!S.myTeam.length){
+    el.innerHTML=`<div class="empty"><div class="ic">📋</div><p>Roster is empty. Head to Draft to pick athletes!</p><br><button class="btn btn-p" onclick="go('draft')">Go to Draft →</button></div>`;
+    return;
+  }
+
+  const runners=S.myTeam.map(id=>runner(id)).filter(Boolean);
+
+  const meetRows=[1,2].map(mid=>{
+    const meet=MEETS.find(m=>m.id===mid);
+    const p=runners.reduce((s,r)=>s+(PTS[RESULTS[mid]?.[r.id]]||0),0);
+    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:var(--bg2);border-radius:8px">
+      <span style="font-size:13px">${meet.name}</span>
+      <span style="font-weight:700;color:var(--or)">${p} pts</span>
+    </div>`;
+  }).join('');
+
+  const osloRow=S.osloSim&&S.osloRes?`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:var(--bg2);border-radius:8px;border:1px solid rgba(231,76,60,.3)">
+      <span style="font-size:13px">Oslo Bislett Games <span style="color:var(--red);font-size:10px">●LIVE</span></span>
+      <span style="font-weight:700;color:var(--or)">${runners.reduce((s,r)=>s+(PTS[S.osloRes[r.id]]||0),0)} pts</span>
+    </div>`:'';
+
+  el.innerHTML=`
+    <div class="g2" style="margin-bottom:20px">
+      <div class="card">
+        <div class="card-title">📊 Points by Event</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          ${meetRows}${osloRow}
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--card2);border-radius:8px">
+            <span style="font-weight:700">Total</span>
+            <span style="font-weight:800;font-size:18px;color:var(--or)">${total} pts</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">🏅 Roster Info</div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:13px">
+          ${[
+            ['Roster size',`${runners.length} / ${MAX_ROSTER}`],
+            ['Budget spent',`<span style="color:var(--or)">${S.budgetUsed} / ${BUDGET} credits</span>`],
+            ['League rank',`<span style="color:var(--gold)">🏆 #${myRank()} of 4</span>`],
+            ['Events scored',`${S.osloSim?3:2} / 5`],
+          ].map(([k,v])=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)"><span style="color:var(--t2)">${k}</span><span>${v}</span></div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">👕 Roster</div>
+      <div class="roc">
+        ${runners.map(r=>{
+          const pts=runnerPts(r.id);
+          const col=CAT_COLOR[r.cat];
+          const ini=initials(r.name);
+          const meetBreak=[1,2].filter(mid=>RESULTS[mid]?.[r.id]).map(mid=>{
+            const pos=RESULTS[mid][r.id];
+            return `<span style="font-size:10px;color:var(--t3)">${MEETS.find(m=>m.id===mid).name.split(':').pop().trim()}: <strong style="color:var(--t2)">${PTS[pos]||0}pts (${ordinal(pos)})</strong></span>`;
+          }).join('');
+          const osloBreak=S.osloSim&&S.osloRes?.[r.id]?`<span style="font-size:10px;color:var(--t3)">Oslo: <strong style="color:var(--red)">${PTS[S.osloRes[r.id]]||0}pts (${ordinal(S.osloRes[r.id])})</strong></span>`:'';
+          return `<div class="rocard">
+            <button class="btn btn-d bsm" style="position:absolute;top:12px;right:12px" onclick="drop(${r.id})">Drop</button>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+              <div class="rav" style="background:${col};width:40px;height:40px;font-size:13px">${ini}</div>
+              <div>
+                <div style="font-weight:700;font-size:14px">${r.flag} ${r.name}</div>
+                <div style="font-size:11px;color:var(--t2)">${r.country}</div>
+              </div>
+            </div>
+            <div class="rtags" style="margin-bottom:8px">${r.events.map(e=>`<span class="tag ${r.cat}">${e}</span>`).join('')}</div>
+            <div style="display:flex;flex-direction:column;gap:2px;margin-bottom:8px">${meetBreak}${osloBreak}</div>
+            <div class="ro-pts">${pts} <span>pts this season</span></div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+}
+
+// ── EVENTS ────────────────────────────────────────────────────
+
+function renderEvents(){
+  document.getElementById('evtList').innerHTML=MEETS.map(m=>{
+    const comp=m.status==='completed', live=m.status==='live', up=m.status==='upcoming';
+    const dateStr=new Date(m.date).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+    const days=Math.ceil((new Date(m.date)-new Date())/86400000);
+
+    let extra='';
+    if(comp){
+      const res=RESULTS[m.id]||{};
+      const items=Object.entries(res).sort(([,a],[,b])=>a-b).slice(0,12).map(([rid,pos])=>{
+        const r=runner(+rid); if(!r)return'';
+        const onTeam=S.myTeam.includes(+rid);
+        const pc=pos<=3?`p${pos}`:'po';
+        return `<div class="eitem" style="${onTeam?'border:1px solid rgba(255,107,53,.4);background:rgba(255,107,53,.05)':''}">
+          <div class="pos ${pc}">${pos}</div>
+          <div style="flex:1;min-width:0"><div style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.flag} ${r.name.split(' ').pop()}</div>
+          <div style="font-size:10px;color:var(--t3)">${r.events[0]}</div></div>
+          <div style="font-weight:700;color:var(--or);font-size:12px">+${PTS[pos]||0}</div>
+        </div>`;
+      }).join('');
+      extra=`<div class="eres">${items}</div>`;
+    } else if(live){
+      if(S.osloSim&&S.osloRes){
+        const items=Object.entries(S.osloRes).sort(([,a],[,b])=>a-b).slice(0,12).map(([rid,pos])=>{
+          const r=runner(+rid); if(!r)return'';
+          const onTeam=S.myTeam.includes(+rid);
+          const pc=pos<=3?`p${pos}`:'po';
+          return `<div class="eitem" style="${onTeam?'border:1px solid rgba(231,76,60,.4);background:rgba(231,76,60,.05)':''}">
+            <div class="pos ${pc}">${pos}</div>
+            <div style="flex:1;min-width:0"><div style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.flag} ${r.name.split(' ').pop()}</div>
+            <div style="font-size:10px;color:var(--t3)">${r.events[0]}</div></div>
+            <div style="font-weight:700;color:var(--or);font-size:12px">+${PTS[pos]||0}</div>
+          </div>`;
+        }).join('');
+        extra=`<div class="eres">${items}</div>`;
+      } else {
+        extra=`<div style="margin-top:12px"><p style="font-size:13px;color:var(--t2);margin-bottom:12px">Results coming in! Hit simulate to score your team.</p>
+          <button class="sim-btn" onclick="simOslo()">⚡ Simulate Oslo Results</button></div>`;
+      }
+    } else {
+      extra=`<div style="margin-top:10px;font-size:12px;color:var(--t3)">📅 ${days} days away</div>`;
+    }
+
+    return `<div class="ecard">
+      <div class="edate"><div class="mo">${m.mo}</div><div class="dy">${m.dy}</div></div>
+      <div class="einfo">
+        <div class="ename">${m.name}</div>
+        <div class="eloc">📍 ${m.loc} · ${dateStr}</div>
+        <span class="sbadge ${m.status}">${live?'🔴 LIVE':comp?'✅ Completed':'🔜 Upcoming'}</span>
+        <div class="disc">${m.disc.map(d=>`<span class="dchip">${d}</span>`).join('')}</div>
+        ${extra}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function simOslo(){
+  // Group runners by their primary event that's in Oslo's disciplines
+  const oslo=MEETS[2];
+  const groups={};
+  RUNNERS.forEach(r=>{
+    const ev=r.events.find(e=>oslo.disc.includes(e));
+    if(ev){if(!groups[ev])groups[ev]=[];groups[ev].push(r.id);}
+  });
+
+  const res={};
+  Object.values(groups).forEach(ids=>{
+    const scored=ids.map(id=>{
+      const r=runner(id);
+      return {id,score:(10-Math.min(r.rank,9))*10+Math.random()*28};
+    });
+    scored.sort((a,b)=>b.score-a.score);
+    scored.forEach((x,i)=>{res[x.id]=i+1});
+  });
+
+  S.osloSim=true; S.osloRes=res; save();
+  const myPts=S.myTeam.reduce((s,id)=>s+(PTS[res[id]]||0),0);
+  toast(`Oslo results in! Your team scored ${myPts} points! 🏃`);
+  renderEvents();
+  if(document.getElementById('sec-dashboard').classList.contains('active'))renderDash();
+  if(document.getElementById('sec-myteam').classList.contains('active'))renderMyTeam();
+  if(document.getElementById('sec-standings').classList.contains('active'))renderStandings();
+}
+
+// ── STANDINGS ─────────────────────────────────────────────────
+
+function renderStandings(){
+  const rows=standings();
+  const evtCount=S.osloSim?3:2;
+  document.getElementById('stEvts').textContent=evtCount;
+
+  document.getElementById('stTbl').innerHTML=`<thead><tr>
+    <th style="width:40px">#</th><th>Team</th><th style="text-align:right">Pts</th>
+    <th style="text-align:right">Avg/Meet</th><th style="text-align:right">Athletes</th>
+  </tr></thead><tbody>${rows.map((t,i)=>{
+    const rn=i+1, rc=rn<=3?`r${rn}`:'ro';
+    const avg=evtCount?( t.pts/evtCount).toFixed(1):'—';
+    const em=t.isMe?'🎮':(t.emoji||'🤖');
+    return `<tr>
+      <td><div class="rnum ${rc}">${rn}</div></td>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:18px">${em}</span>
+        <div>
+          <div style="font-weight:700${t.isMe?';color:var(--or)':''}">${t.isMe?'⭐ ':''}${t.name}${t.isMe?' (You)':''}</div>
+          <div style="font-size:11px;color:var(--t3)">${t.runners.length} athletes</div>
+        </div>
+      </div></td>
+      <td style="text-align:right;font-weight:800;font-size:16px">${t.pts}</td>
+      <td style="text-align:right;color:var(--t2)">${avg}</td>
+      <td style="text-align:right;color:var(--t2)">${t.runners.length}/6</td>
+    </tr>`;
+  }).join('')}</tbody>`;
+
+  document.getElementById('stBreak').innerHTML=rows.map(t=>{
+    const aths=t.runners.map(id=>runner(id)).filter(Boolean);
+    const em=t.isMe?'🎮':(t.emoji||'🤖');
+    return `<div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)">
+      <div style="font-weight:700;margin-bottom:8px">${em} ${t.name}${t.isMe?` <span style="color:var(--or)">(You)</span>`:''}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        ${aths.length?aths.map(r=>{
+          const pts=runnerPts(r.id);
+          const col=CAT_COLOR[r.cat];
+          return `<div style="display:flex;align-items:center;gap:6px;padding:4px 10px;background:var(--bg2);border-radius:8px;font-size:12px">
+            <div style="width:22px;height:22px;border-radius:50%;background:${col};display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff">${initials(r.name)}</div>
+            <span>${r.flag} ${r.name.split(' ').pop()}</span>
+            <span style="color:var(--or);font-weight:700">${pts}pts</span>
+          </div>`;
+        }).join(''):`<span style="color:var(--t3);font-size:12px">No athletes drafted</span>`}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── DASHBOARD ─────────────────────────────────────────────────
+
+function renderDash(){
+  const total=teamPts(S.myTeam);
+  document.getElementById('dPts').textContent=total;
+  document.getElementById('dRank').textContent=`#${myRank()}`;
+  document.getElementById('dRos').textContent=S.myTeam.length;
+  document.getElementById('dBud').textContent=BUDGET-S.budgetUsed;
+  document.getElementById('dDraftPrompt').style.display=S.myTeam.length?'none':'block';
+
+  // Performers
+  const pEl=document.getElementById('dPerfs');
+  if(!S.myTeam.length){
+    pEl.innerHTML=`<div class="empty" style="padding:20px"><div class="ic">📋</div><p>Draft athletes to see performers</p></div>`;
+  } else {
+    const sorted=S.myTeam.map(id=>({r:runner(id),pts:runnerPts(id)})).filter(x=>x.r).sort((a,b)=>b.pts-a.pts).slice(0,5);
+    pEl.innerHTML=`<div style="display:flex;flex-direction:column;gap:8px">${sorted.map(({r,pts})=>`
+      <div class="perf-row">
+        <div class="perf-av" style="background:${CAT_COLOR[r.cat]}">${initials(r.name)}</div>
+        <div style="flex:1">
+          <div style="font-weight:600;font-size:13px">${r.flag} ${r.name}</div>
+          <div style="font-size:11px;color:var(--t2)">${r.events[0]} · ${r.country}</div>
+        </div>
+        <div style="font-weight:800;color:var(--or)">${pts} pts</div>
+      </div>`).join('')}</div>`;
+  }
+
+  // Next event
+  const nxt=MEETS.find(m=>m.status==='live')||MEETS.find(m=>m.status==='upcoming');
+  if(nxt){
+    document.getElementById('dEvtName').textContent=nxt.name;
+    document.getElementById('dEvtInfo').textContent=`${nxt.loc} · ${new Date(nxt.date).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}`;
+    const b=document.getElementById('dEvtBadge'), h=document.getElementById('dEvtHint');
+    if(nxt.status==='live'){
+      b.textContent='🔴 LIVE NOW'; b.className='sbadge live';
+      h.textContent=S.osloSim?'Results available':'Go to Events to simulate';
+    } else {
+      const d=Math.ceil((new Date(nxt.date)-new Date())/86400000);
+      b.textContent='🔜 Upcoming'; b.className='sbadge upcoming';
+      h.textContent=`${d} days away`;
+    }
+  }
+}
+
+// ── TEAM NAME ─────────────────────────────────────────────────
+
+function openNameModal(){
+  document.getElementById('nameInput').value=S.teamName;
+  document.getElementById('nameModal').classList.add('open');
+  setTimeout(()=>document.getElementById('nameInput').focus(),100);
+}
+
+function saveName(){
+  const v=document.getElementById('nameInput').value.trim();
+  if(v){S.teamName=v;save();updateHeader();toast(`Team name: "${v}"!`);}
+  closeModal();
+  if(document.getElementById('sec-standings').classList.contains('active'))renderStandings();
+}
+
+function closeModal(){document.getElementById('nameModal').classList.remove('open')}
+
+document.getElementById('nameModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal()});
+document.getElementById('nameInput').addEventListener('keydown',e=>{if(e.key==='Enter')saveName();if(e.key==='Escape')closeModal()});
+
+// ── INIT ──────────────────────────────────────────────────────
+
+load(); updateHeader(); renderDash();
+</script>
+</body>
+</html>
