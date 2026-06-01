@@ -13,8 +13,7 @@
 }
 body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;font-size:14px}
 
-.hdr{background:linear-gradient(135deg,#1a0800,#2d1200 40%,#0a0a20);border-bottom:3px solid var(--or);
-  padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:200;gap:16px}
+.hdr{background:linear-gradient(135deg,#1a0800,#2d1200 40%,#0a0a20);border-bottom:3px solid var(--or);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:200;gap:16px}
 .logo{display:flex;align-items:center;gap:10px}
 .logo-icon{width:36px;height:36px;background:var(--or);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px}
 .logo-text{font-size:18px;font-weight:800;letter-spacing:-0.5px}
@@ -29,7 +28,7 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 .ntab:hover{color:var(--text)}
 .ntab.active{color:var(--or);border-bottom-color:var(--or)}
 
-.main{max-width:1200px;margin:0 auto;padding:24px}
+.main{max-width:1100px;margin:0 auto;padding:24px}
 .sec{display:none}.sec.active{display:block}
 .databar{background:rgba(67,97,238,.08);border:1px solid rgba(67,97,238,.3);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--t2);margin-bottom:20px;line-height:1.5}
 .databar strong{color:#7b9fff}
@@ -37,8 +36,9 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
 .card-title{font-size:15px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-@media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:1fr}}
 @media(max-width:600px){.g2,.g4{grid-template-columns:1fr}.main{padding:16px}.hdr{padding:0 16px}}
 
 .scard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 20px}
@@ -51,7 +51,7 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 .rc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;transition:all .15s;position:relative;overflow:hidden}
 .rc:hover{background:var(--card2);border-color:var(--or)}
 .rc.drafted{border-color:var(--green);background:#1a2a1a}
-.rc.drafted::after{content:'✓ On Team';position:absolute;top:8px;right:8px;background:var(--green);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px}
+.rc.drafted::after{content:'✓ Picked';position:absolute;top:8px;right:8px;background:var(--green);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px}
 .rc.over{opacity:.45}
 .rav{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:#fff}
 .rname{font-weight:700;font-size:14px;margin-bottom:2px}
@@ -81,14 +81,7 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 .fbtn:hover{border-color:var(--or);color:var(--or)}
 .fbtn.active{background:var(--or);color:#fff;border-color:var(--or)}
 
-.budbar{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:16px}
-.budbar-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.budbar-nums{display:flex;gap:16px;font-size:12px;color:var(--t2);flex-wrap:wrap}
-.budbar-nums .used{color:var(--or);font-weight:700}.budbar-nums .rem{color:var(--gold);font-weight:700}
-.budbar-track{height:8px;background:var(--bg2);border-radius:4px;overflow:hidden}
-.budbar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--or),var(--gold));transition:width .3s}
-
-/* TRACK / LINEUP */
+/* TRACK */
 .track{position:relative;overflow:hidden;border-radius:18px;padding:18px;border:4px solid #e8e8e8;background:linear-gradient(135deg,#A8432F 0%,#C0563D 50%,#A8432F 100%)}
 .track::before{content:'';position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,transparent 0,transparent 78px,rgba(255,255,255,.28) 78px,rgba(255,255,255,.28) 81px)}
 .track-head{position:relative;z-index:1;display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.4);margin-bottom:14px;flex-wrap:wrap}
@@ -98,7 +91,7 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 .lane-tag{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:14px;margin-bottom:10px;padding:5px 14px;border-radius:20px;background:var(--c);color:#fff}
 .lane-tag small{font-weight:600;opacity:.9;font-size:11px}
 .slots{display:flex;flex-wrap:wrap;gap:10px}
-.slot{width:128px;min-height:128px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;text-align:center;padding:10px;position:relative;transition:all .15s}
+.slot{width:150px;min-height:128px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;text-align:center;padding:10px;position:relative;transition:all .15s}
 .slot.empty{border:2px dashed rgba(255,255,255,.45);background:rgba(255,255,255,.06);color:#fff}
 .slot.empty:hover{border-color:#fff;background:rgba(255,255,255,.15);transform:translateY(-2px)}
 .slot.empty .plus{font-size:30px;font-weight:200;line-height:1}
@@ -109,7 +102,7 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 .slot-av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;margin-bottom:2px}
 .slot-name{font-weight:700;font-size:12px;line-height:1.15}
 .slot-ev{font-size:10px;color:var(--t2)}
-.slot-pts{font-size:12px;font-weight:800;color:var(--or)}
+.slot-pts{font-size:11px;font-weight:700;color:var(--gold)}
 .slot-x{position:absolute;top:5px;right:5px;width:20px;height:20px;border-radius:50%;border:none;background:var(--red);color:#fff;font-size:14px;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;z-index:2}
 .slot-x:hover{background:#c0392b}
 
@@ -119,31 +112,28 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 .sbadge.upcoming{background:rgba(67,97,238,.2);color:#7b9fff}
 
 .ecard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;display:flex;gap:16px}
+.ecard.hl{border-color:var(--gold);background:linear-gradient(135deg,#1e1a05,#1E1E24)}
 .edate{background:var(--card2);border-radius:8px;padding:8px 12px;text-align:center;flex-shrink:0;min-width:56px}
 .edate .mo{font-size:10px;text-transform:uppercase;color:var(--t2)}
 .edate .dy{font-size:24px;font-weight:800;line-height:1}
-.einfo{flex:1}
+.einfo{flex:1;min-width:0}
 .ename{font-weight:700;font-size:15px;margin-bottom:2px}
 .eloc{font-size:12px;color:var(--t2);margin-bottom:8px}
-.eres{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:5px;margin-top:12px}
-.eitem{display:flex;align-items:center;gap:6px;font-size:12px;padding:4px 8px;background:var(--bg2);border-radius:6px}
-.pos{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0}
+.eres{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:6px;margin-top:12px}
+.eitem{display:flex;align-items:center;gap:8px;font-size:12px;padding:6px 10px;background:var(--bg2);border-radius:8px}
+.pos{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0}
 .pos.p1{background:#F7B731;color:#000}.pos.p2{background:#BDC3C7;color:#000}.pos.p3{background:#E67E22;color:#fff}.pos.po{background:var(--card2);color:var(--t2)}
+.recchip{font-size:9px;font-weight:800;padding:1px 5px;border-radius:5px;background:rgba(247,183,49,.18);color:var(--gold);white-space:nowrap}
 .disc{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
 .dchip{font-size:10px;padding:2px 7px;background:var(--bg2);border-radius:6px;color:var(--t2)}
 
-.stbl{width:100%;border-collapse:collapse}
-.stbl th{text-align:left;padding:10px 14px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);border-bottom:1px solid var(--border)}
-.stbl td{padding:12px 14px;border-bottom:1px solid var(--border)}
-.stbl tr:last-child td{border-bottom:none}
-.stbl tr:hover td{background:var(--card2)}
-.rnum{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
-.rnum.r1{background:var(--gold);color:#000}.rnum.r2{background:#BDC3C7;color:#000}.rnum.r3{background:#E67E22;color:#fff}.rnum.ro{background:var(--card2);color:var(--t2)}
+.rule-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.rule{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--bg2);border-radius:8px;font-size:13px}
+.rule .v{font-weight:800;color:var(--gold)}
+.rule.place .v{color:var(--or)}
 
-.devt{background:linear-gradient(135deg,#1a0800,#2a1500);border:1px solid var(--or);border-radius:12px;padding:20px;position:relative;overflow:hidden}
-.devt::before{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,107,53,.1)}
-.perf-row{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--bg2);border-radius:8px}
-.perf-av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;color:#fff;flex-shrink:0}
+.lb-row{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--bg2);border-radius:8px}
+.lb-av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;color:#fff;flex-shrink:0}
 
 .srch{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;color:var(--text);font-size:14px;width:220px;outline:none;transition:border-color .15s}
 .srch::placeholder{color:var(--t3)}.srch:focus{border-color:var(--or)}
@@ -175,10 +165,7 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 <div class="toast" id="toast"></div>
 
 <header class="hdr">
-  <div class="logo">
-    <div class="logo-icon">🏃</div>
-    <div class="logo-text">Fantasy <span>Diamond League</span></div>
-  </div>
+  <div class="logo"><div class="logo-icon">🏃</div><div class="logo-text">Fantasy <span>Diamond League</span></div></div>
   <div class="hdr-r">
     <div class="bud-badge">💰 Value <span class="cred" id="hValue">0</span></div>
     <div class="team-badge" onclick="openNameModal()">✏️ <span id="hTeamName">My Team</span></div>
@@ -187,10 +174,10 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 
 <nav class="nav">
   <div class="ntab active" data-tab="dashboard" onclick="go('dashboard')">🏠 Dashboard</div>
-  <div class="ntab" data-tab="draft" onclick="go('draft')">📋 Athletes</div>
   <div class="ntab" data-tab="myteam" onclick="go('myteam')">🏟️ My Team</div>
-  <div class="ntab" data-tab="events" onclick="go('events')">📅 Fixtures</div>
-  <div class="ntab" data-tab="standings" onclick="go('standings')">🏆 Standings</div>
+  <div class="ntab" data-tab="draft" onclick="go('draft')">📋 Athletes</div>
+  <div class="ntab" data-tab="results" onclick="go('results')">📊 Results</div>
+  <div class="ntab" data-tab="rules" onclick="go('rules')">🧮 Scoring</div>
 </nav>
 
 <main class="main">
@@ -199,45 +186,30 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 <section class="sec active" id="sec-dashboard">
   <div class="sec-hdr"><h1 class="sec-title">Dashboard</h1><span style="font-size:13px;color:var(--t2)">2026 Wanda Diamond League</span></div>
   <div class="databar" id="dataNote"></div>
+  <div class="ecard hl" id="dHero" style="margin-bottom:20px"></div>
   <div class="g4" style="margin-bottom:20px">
-    <div class="scard or"><div class="slabel">Your Points</div><div class="sval" id="dPts">0</div><div class="ssub">real DL points</div></div>
-    <div class="scard gd"><div class="slabel">League Rank</div><div class="sval" id="dRank">—</div><div class="ssub">of 4 teams</div></div>
-    <div class="scard bl"><div class="slabel">Lanes Filled</div><div class="sval" id="dRos">0</div><div class="ssub">of 19 lanes</div></div>
-    <div class="scard gr"><div class="slabel">Team Value</div><div class="sval" id="dBud">0</div><div class="ssub">credits</div></div>
+    <div class="scard or"><div class="slabel">Rome Points</div><div class="sval" id="dPts">—</div><div class="ssub" id="dPtsSub">pending results</div></div>
+    <div class="scard bl"><div class="slabel">Lanes Filled</div><div class="sval" id="dRos">0</div><div class="ssub" id="dRosSub">of 0</div></div>
+    <div class="scard gd"><div class="slabel">Team Value</div><div class="sval" id="dBud">0</div><div class="ssub">credits</div></div>
+    <div class="scard gr"><div class="slabel">Squad Form</div><div class="sval" id="dForm">0</div><div class="ssub">pts at last meet</div></div>
   </div>
-  <div class="g2" style="margin-bottom:20px">
-    <div class="devt">
-      <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--or);margin-bottom:6px">Next Meeting</div>
-      <div style="font-size:18px;font-weight:800;margin-bottom:2px" id="dEvtName">—</div>
-      <div style="font-size:13px;color:var(--t2);margin-bottom:12px" id="dEvtInfo">—</div>
-      <div style="display:flex;gap:8px;align-items:center">
-        <span class="sbadge next" id="dEvtBadge">Upcoming</span>
-        <span style="font-size:12px;color:var(--t2)" id="dEvtHint"></span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title">⭐ Your Top Performers</div>
-      <div id="dPerfs"><div class="empty" style="padding:20px"><div class="ic">🏟️</div><p>Build your lineup to see performers</p></div></div>
-    </div>
+  <div class="card">
+    <div class="card-title">🏟️ Your Team for the Next Meeting</div>
+    <div id="dSquad"></div>
   </div>
-  <div id="dDraftPrompt" class="card" style="text-align:center;padding:32px">
-    <div style="font-size:40px;margin-bottom:12px">🏟️</div>
-    <div style="font-size:17px;font-weight:700;margin-bottom:6px">Build Your Lineup</div>
-    <div style="font-size:13px;color:var(--t2);margin-bottom:16px">Fill 19 lanes with real Diamond League athletes. You score their actual finishing points.</div>
-    <button class="btn btn-p" onclick="go('myteam')">Open My Team Track →</button>
-  </div>
+</section>
+
+<!-- MY TEAM -->
+<section class="sec" id="sec-myteam">
+  <div class="sec-hdr"><h1 class="sec-title">My Team</h1><span style="font-size:13px;color:var(--t2)" id="mtFor"></span></div>
+  <div class="databar" id="mtNote"></div>
+  <div id="mtContent"></div>
 </section>
 
 <!-- ATHLETES -->
 <section class="sec" id="sec-draft">
   <div class="sec-hdr"><h1 class="sec-title">Athlete Pool</h1><input class="srch" id="srch" placeholder="🔍 Search athletes..." oninput="renderDraft()"></div>
-  <div class="databar">Athletes and points below are <strong>real 2026 Diamond League competitors</strong>. Season points reflect actual finishes through Rabat (31 May 2026).</div>
-  <div class="budbar">
-    <div class="budbar-hdr"><span style="font-size:13px;font-weight:700">Lineup Progress</span>
-      <div class="budbar-nums"><span>Filled: <span class="used" id="bUsed">0</span>/19</span><span>Open lanes: <span class="rem" id="bRem">19</span></span><span style="color:var(--t3)">Team value: <span id="bRos">0</span></span></div>
-    </div>
-    <div class="budbar-track"><div class="budbar-fill" id="bBar" style="width:0%"></div></div>
-  </div>
+  <div class="databar" id="drNote"></div>
   <div class="fbar">
     <span style="font-size:12px;color:var(--t2);font-weight:600">Filter:</span>
     <button class="fbtn active" data-f="all" onclick="setF('all')">All</button>
@@ -248,32 +220,36 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
   <div class="rg" id="draftGrid"></div>
 </section>
 
-<!-- MY TEAM -->
-<section class="sec" id="sec-myteam">
-  <div class="sec-hdr"><h1 class="sec-title">My Team</h1><span style="font-size:13px;color:var(--t2)">Season total: <strong style="color:var(--or)" id="mtPts">0</strong> pts</span></div>
-  <div id="mtContent"></div>
-</section>
-
-<!-- FIXTURES -->
-<section class="sec" id="sec-events">
-  <div class="sec-hdr"><h1 class="sec-title">2026 Fixtures</h1><span style="font-size:13px;color:var(--t2)">Real Wanda Diamond League calendar</span></div>
-  <div class="databar">Real 2026 schedule. <strong>Completed</strong> meetings show actual marquee-event results (top finishers, sourced from public race reports). Upcoming meetings haven't happened yet.</div>
+<!-- RESULTS -->
+<section class="sec" id="sec-results">
+  <div class="sec-hdr"><h1 class="sec-title">Results & Fixtures</h1><span style="font-size:13px;color:var(--t2)">Real 2026 calendar</span></div>
+  <div class="databar">Real 2026 schedule. <strong>Completed</strong> meetings show actual marquee results scored under your points system (placing + record bonuses). The <strong>next meeting</strong> is highlighted — that's the one your team is for.</div>
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-title">🥇 Top Fantasy Scorers (season so far)</div>
+    <div id="leaderboard"></div>
+  </div>
   <div style="display:flex;flex-direction:column;gap:12px" id="evtList"></div>
 </section>
 
-<!-- STANDINGS -->
-<section class="sec" id="sec-standings">
-  <div class="sec-hdr"><h1 class="sec-title">Standings</h1><span style="font-size:13px;color:var(--t2)">After <span id="stEvts">3</span> meetings</span></div>
-  <div class="card" style="margin-bottom:16px"><table class="stbl" id="stTbl"></table></div>
-  <div class="card"><div class="card-title">📊 Team Rosters</div><div id="stBreak"></div></div>
+<!-- SCORING RULES -->
+<section class="sec" id="sec-rules">
+  <div class="sec-hdr"><h1 class="sec-title">Scoring System</h1></div>
+  <div class="databar">Each athlete earns <strong>placing points</strong> plus any <strong>record/standard bonuses</strong> they achieve in a race. Bonuses stack on top of placing points.</div>
+  <div class="g2">
+    <div class="card"><div class="card-title">🏁 Placing Points</div><div class="rule-grid" id="placeRules"></div></div>
+    <div class="card"><div class="card-title">⭐ Record & Standard Bonuses</div><div class="rule-grid" id="bonusRules"></div></div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <div class="card-title">💡 Example</div>
+    <div style="font-size:13px;color:var(--t2);line-height:1.7" id="ruleExample"></div>
+  </div>
 </section>
 
 </main>
 
 <div class="mover" id="nameModal">
   <div class="modal">
-    <div class="mtitle">Edit Team Name</div>
-    <div class="msub">Give your fantasy team a great name</div>
+    <div class="mtitle">Edit Team Name</div><div class="msub">Give your fantasy team a great name</div>
     <input class="srch" id="nameInput" style="width:100%;margin-bottom:8px" placeholder="Enter team name..." maxlength="30">
     <div class="mact"><button class="btn btn-o" onclick="closeModal()">Cancel</button><button class="btn btn-p" onclick="saveName()">Save</button></div>
   </div>
@@ -289,140 +265,106 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 
 <script>
 // ── CONFIG ────────────────────────────────────────────────────
-const TODAY = new Date('2026-06-01');
-const PTS = {1:15,2:12,3:10,4:8,5:6,6:5,7:4,8:3};
-const CAT_COLOR = {sprint:'#FF6B35',middle:'#4361EE',hurdles:'#E74C3C'};
-const EVENT_COLOR = {'100m':'#FF6B35','200m':'#FF8C42','400m':'#E67E22','800m':'#4361EE','1500m':'#9B59B6','100mH':'#E74C3C','400mH':'#C0392B'};
-
-const SLOTS = [
-  {event:"100m",count:3},{event:"200m",count:2},{event:"400m",count:1},
-  {event:"800m",count:4},{event:"1500m",count:5},{event:"100mH",count:2},{event:"400mH",count:2},
-];
-const TOTAL_SLOTS = SLOTS.reduce((s,g)=>s+g.count,0); // 19
+const TODAY=new Date('2026-06-01');
+const PLACE_PTS={1:10,2:7,3:5,4:3,5:1};
+const BONUS={WR:20,AR:17,CR:16,WL:16,NR:15,MR:12,PB:7,SB:5};
+const BONUS_LABEL={WR:'World record',AR:'Area record',CR:'Championship record',WL:'World lead',NR:'National record',MR:'Meeting record',PB:'Personal best',SB:'Season best'};
+const CAT_COLOR={sprint:'#FF6B35',middle:'#4361EE',hurdles:'#E74C3C'};
+const EVENT_COLOR={'100m':'#FF6B35','200m':'#FF8C42','400m':'#E67E22','800m':'#4361EE','1500m':'#9B59B6','100mH':'#E74C3C','400mH':'#C0392B'};
+const TRACKED=['100m','200m','400m','800m','1500m','100mH','400mH'];
 
 // ── REAL 2026 DIAMOND LEAGUE ATHLETES ─────────────────────────
-// g = gender (M/W). Season-best / notable mark in pb. cost = fantasy value.
-const RUNNERS = [
-  // 100m
-  {id:1, name:"Gift Leotlela",      flag:"🇿🇦",country:"South Africa",g:"M",events:["100m"],        cat:"sprint", cost:15,pb:"9.97",   bio:"Won Shanghai 100m in 9.97"},
-  {id:2, name:"Ferdinand Omanyala", flag:"🇰🇪",country:"Kenya",       g:"M",events:["100m"],        cat:"sprint", cost:16,pb:"9.94",   bio:"African record holder; won Xiamen 100m"},
-  {id:3, name:"Kenny Bednarek",     flag:"🇺🇸",country:"USA",         g:"M",events:["100m","200m"], cat:"sprint", cost:19,pb:"19.69",  bio:"Olympic 200m medallist; won Rabat 200m (MR)"},
-  {id:4, name:"Trayvon Bromell",    flag:"🇺🇸",country:"USA",         g:"M",events:["100m"],        cat:"sprint", cost:12,pb:"10.03",  bio:"World medallist; 3rd in Xiamen 100m"},
-  {id:5, name:"Tina Clayton",       flag:"🇯🇲",country:"Jamaica",     g:"W",events:["100m"],        cat:"sprint", cost:17,pb:"10.76",  bio:"Won Rabat 100m leading a Jamaican sweep"},
-  {id:6, name:"Jonielle Smith",     flag:"🇯🇲",country:"Jamaica",     g:"W",events:["100m"],        cat:"sprint", cost:11,pb:"10.99",  bio:"3rd in Rabat 100m"},
-  // 200m
-  {id:7, name:"Shericka Jackson",   flag:"🇯🇲",country:"Jamaica",     g:"W",events:["200m"],        cat:"sprint", cost:20,pb:"21.87",  bio:"World 200m record holder; won Shanghai & Xiamen"},
-  {id:8, name:"Cambrea Sturgis",    flag:"🇺🇸",country:"USA",         g:"W",events:["200m"],        cat:"sprint", cost:13,pb:"22.21",  bio:"Won Rabat 200m"},
-  {id:9, name:"Kayla White",        flag:"🇺🇸",country:"USA",         g:"W",events:["200m"],        cat:"sprint", cost:11,pb:"22.38",  bio:"2nd in Rabat 200m (SB)"},
-  {id:10,name:"Audrey Leduc",       flag:"🇨🇦",country:"Canada",      g:"W",events:["200m"],        cat:"sprint", cost:11,pb:"22.41",  bio:"Canadian record holder; 3rd in Rabat 200m"},
-  // 400m
-  {id:11,name:"Jacory Patterson",   flag:"🇺🇸",country:"USA",         g:"M",events:["400m"],        cat:"sprint", cost:14,pb:"44.11",  bio:"Won Rabat 400m in a meeting record"},
-  {id:12,name:"Quincy Hall",        flag:"🇺🇸",country:"USA",         g:"M",events:["400m"],        cat:"sprint", cost:16,pb:"43.40",  bio:"Olympic 400m champion, returning to action"},
-  // 800m
-  {id:13,name:"Max Burgin",         flag:"🇬🇧",country:"Great Britain",g:"M",events:["800m"],       cat:"middle", cost:15,pb:"1:42.98",bio:"Won Rabat 800m"},
-  {id:14,name:"Audrey Werro",       flag:"🇨🇭",country:"Switzerland", g:"W",events:["800m"],        cat:"middle", cost:15,pb:"1:56.56",bio:"Won Rabat 800m in a meeting record"},
-  {id:15,name:"Tsige Duguma",       flag:"🇪🇹",country:"Ethiopia",    g:"W",events:["800m","1500m"],cat:"middle", cost:16,pb:"1:57.24",bio:"World 800m medallist; podiums at Shanghai & Rabat"},
-  {id:16,name:"Lilian Odira",       flag:"🇰🇪",country:"Kenya",       g:"W",events:["800m"],        cat:"middle", cost:12,pb:"1:57.27",bio:"3rd in Rabat 800m"},
-  {id:17,name:"Emmanuel Wanyonyi",  flag:"🇰🇪",country:"Kenya",       g:"M",events:["800m"],        cat:"middle", cost:18,pb:"1:41.11",bio:"Olympic 800m champion"},
-  // 1500m
-  {id:18,name:"Birke Haylom",       flag:"🇪🇹",country:"Ethiopia",    g:"W",events:["1500m"],       cat:"middle", cost:16,pb:"3:55.56",bio:"Won Shanghai 1500m (world lead)"},
-  {id:19,name:"Abbey Caldwell",     flag:"🇦🇺",country:"Australia",   g:"W",events:["1500m"],       cat:"middle", cost:14,pb:"3:57.26",bio:"Won Xiamen 1500m, her first DL victory"},
-  {id:20,name:"Emily Mackay",       flag:"🇺🇸",country:"USA",         g:"W",events:["1500m"],       cat:"middle", cost:12,pb:"3:58.13",bio:"3rd in Xiamen 1500m"},
-  {id:21,name:"Freweyni Hailu",     flag:"🇪🇹",country:"Ethiopia",    g:"W",events:["1500m"],       cat:"middle", cost:15,pb:"3:58.25",bio:"Won Rabat 1500m"},
-  {id:22,name:"Haregeweyni Kalayu", flag:"🇪🇹",country:"Ethiopia",    g:"W",events:["1500m"],       cat:"middle", cost:11,pb:"3:59.28",bio:"2nd in Rabat 1500m (PB)"},
-  {id:23,name:"Agathe Guillemot",   flag:"🇫🇷",country:"France",      g:"W",events:["1500m"],       cat:"middle", cost:11,pb:"3:59.60",bio:"3rd in Rabat 1500m (SB)"},
-  {id:24,name:"Yared Nuguse",       flag:"🇺🇸",country:"USA",         g:"M",events:["1500m"],       cat:"middle", cost:17,pb:"3:30.35",bio:"Won Rabat 1500m in a meeting record"},
-  // 100m hurdles (women)
-  {id:25,name:"Masai Russell",      flag:"🇺🇸",country:"USA",         g:"W",events:["100mH"],       cat:"hurdles",cost:21,pb:"12.14",  bio:"Olympic champ; won Shanghai & Xiamen 100mH"},
-  {id:26,name:"Tobi Amusan",        flag:"🇳🇬",country:"Nigeria",     g:"W",events:["100mH"],       cat:"hurdles",cost:17,pb:"12.28",  bio:"100mH world record holder; 2nd in Xiamen"},
-  {id:27,name:"Devynne Charlton",   flag:"🇧🇸",country:"Bahamas",     g:"W",events:["100mH"],       cat:"hurdles",cost:13,pb:"12.37",  bio:"World indoor champion; 3rd in Xiamen"},
-  // 400m hurdles
-  {id:28,name:"Alison dos Santos",  flag:"🇧🇷",country:"Brazil",      g:"M",events:["400mH"],       cat:"hurdles",cost:19,pb:"46.72",  bio:"World champion; beat Warholm in Xiamen"},
-  {id:29,name:"Karsten Warholm",    flag:"🇳🇴",country:"Norway",      g:"M",events:["400mH"],       cat:"hurdles",cost:22,pb:"45.94",  bio:"400mH world record holder; 2nd in Xiamen"},
-  {id:30,name:"Emma Zapletalová",   flag:"🇸🇰",country:"Slovakia",    g:"W",events:["400mH"],       cat:"hurdles",cost:14,pb:"52.82",  bio:"Won Rabat 400mH (world lead)"},
-  {id:31,name:"Anna Cockrell",      flag:"🇺🇸",country:"USA",         g:"W",events:["400mH"],       cat:"hurdles",cost:14,pb:"53.18",  bio:"Olympic silver medallist; 2nd in Rabat"},
-  {id:32,name:"Rushell Clayton",    flag:"🇯🇲",country:"Jamaica",     g:"W",events:["400mH"],       cat:"hurdles",cost:13,pb:"53.75",  bio:"World medallist; 3rd in Rabat 400mH"},
+const RUNNERS=[
+  {id:1, name:"Gift Leotlela",      flag:"🇿🇦",country:"South Africa", g:"M",events:["100m"],        cat:"sprint", cost:15,pb:"9.97",   bio:"Won Shanghai 100m in 9.97"},
+  {id:2, name:"Ferdinand Omanyala", flag:"🇰🇪",country:"Kenya",        g:"M",events:["100m"],        cat:"sprint", cost:16,pb:"9.94",   bio:"African record holder; won Xiamen 100m"},
+  {id:3, name:"Kenny Bednarek",     flag:"🇺🇸",country:"USA",          g:"M",events:["100m","200m"], cat:"sprint", cost:19,pb:"19.69",  bio:"Won Rabat 200m in a meeting record"},
+  {id:4, name:"Trayvon Bromell",    flag:"🇺🇸",country:"USA",          g:"M",events:["100m"],        cat:"sprint", cost:12,pb:"10.03",  bio:"World medallist; 3rd in Xiamen 100m"},
+  {id:5, name:"Tina Clayton",       flag:"🇯🇲",country:"Jamaica",      g:"W",events:["100m"],        cat:"sprint", cost:17,pb:"10.76",  bio:"Won Rabat 100m, Jamaican sweep"},
+  {id:6, name:"Jonielle Smith",     flag:"🇯🇲",country:"Jamaica",      g:"W",events:["100m"],        cat:"sprint", cost:11,pb:"10.99",  bio:"3rd in Rabat 100m"},
+  {id:7, name:"Shericka Jackson",   flag:"🇯🇲",country:"Jamaica",      g:"W",events:["200m"],        cat:"sprint", cost:20,pb:"21.87",  bio:"200m WR holder; won Shanghai & Xiamen"},
+  {id:8, name:"Cambrea Sturgis",    flag:"🇺🇸",country:"USA",          g:"W",events:["200m"],        cat:"sprint", cost:13,pb:"22.21",  bio:"Won Rabat 200m"},
+  {id:9, name:"Kayla White",        flag:"🇺🇸",country:"USA",          g:"W",events:["200m"],        cat:"sprint", cost:11,pb:"22.38",  bio:"2nd in Rabat 200m (SB)"},
+  {id:10,name:"Audrey Leduc",       flag:"🇨🇦",country:"Canada",       g:"W",events:["200m"],        cat:"sprint", cost:11,pb:"22.41",  bio:"Canadian record holder; 3rd in Rabat"},
+  {id:11,name:"Jacory Patterson",   flag:"🇺🇸",country:"USA",          g:"M",events:["400m"],        cat:"sprint", cost:14,pb:"44.11",  bio:"Won Rabat 400m (meeting record)"},
+  {id:12,name:"Quincy Hall",        flag:"🇺🇸",country:"USA",          g:"M",events:["400m"],        cat:"sprint", cost:16,pb:"43.40",  bio:"Olympic 400m champion, returning"},
+  {id:13,name:"Max Burgin",         flag:"🇬🇧",country:"Great Britain",g:"M",events:["800m"],        cat:"middle", cost:15,pb:"1:42.98",bio:"Won Rabat 800m"},
+  {id:14,name:"Audrey Werro",       flag:"🇨🇭",country:"Switzerland",  g:"W",events:["800m"],        cat:"middle", cost:15,pb:"1:56.56",bio:"Won Rabat 800m (meeting record)"},
+  {id:15,name:"Tsige Duguma",       flag:"🇪🇹",country:"Ethiopia",     g:"W",events:["800m","1500m"],cat:"middle", cost:16,pb:"1:57.24",bio:"Podiums at Shanghai & Rabat"},
+  {id:16,name:"Lilian Odira",       flag:"🇰🇪",country:"Kenya",        g:"W",events:["800m"],        cat:"middle", cost:12,pb:"1:57.27",bio:"3rd in Rabat 800m"},
+  {id:17,name:"Emmanuel Wanyonyi",  flag:"🇰🇪",country:"Kenya",        g:"M",events:["800m"],        cat:"middle", cost:18,pb:"1:41.11",bio:"Olympic 800m champion"},
+  {id:18,name:"Birke Haylom",       flag:"🇪🇹",country:"Ethiopia",     g:"W",events:["1500m"],       cat:"middle", cost:16,pb:"3:55.56",bio:"Won Shanghai 1500m (world lead, MR)"},
+  {id:19,name:"Abbey Caldwell",     flag:"🇦🇺",country:"Australia",    g:"W",events:["1500m"],       cat:"middle", cost:14,pb:"3:57.26",bio:"Won Xiamen 1500m, first DL win"},
+  {id:20,name:"Emily Mackay",       flag:"🇺🇸",country:"USA",          g:"W",events:["1500m"],       cat:"middle", cost:12,pb:"3:58.13",bio:"3rd in Xiamen 1500m"},
+  {id:21,name:"Freweyni Hailu",     flag:"🇪🇹",country:"Ethiopia",     g:"W",events:["1500m"],       cat:"middle", cost:15,pb:"3:58.25",bio:"Won Rabat 1500m"},
+  {id:22,name:"Haregeweyni Kalayu", flag:"🇪🇹",country:"Ethiopia",     g:"W",events:["1500m"],       cat:"middle", cost:11,pb:"3:59.28",bio:"2nd in Rabat 1500m (PB)"},
+  {id:23,name:"Agathe Guillemot",   flag:"🇫🇷",country:"France",       g:"W",events:["1500m"],       cat:"middle", cost:11,pb:"3:59.60",bio:"3rd in Rabat 1500m (SB)"},
+  {id:24,name:"Yared Nuguse",       flag:"🇺🇸",country:"USA",          g:"M",events:["1500m"],       cat:"middle", cost:17,pb:"3:30.35",bio:"Won Rabat 1500m (meeting record)"},
+  {id:25,name:"Masai Russell",      flag:"🇺🇸",country:"USA",          g:"W",events:["100mH"],       cat:"hurdles",cost:21,pb:"12.14",  bio:"Won Shanghai & Xiamen 100mH"},
+  {id:26,name:"Tobi Amusan",        flag:"🇳🇬",country:"Nigeria",      g:"W",events:["100mH"],       cat:"hurdles",cost:17,pb:"12.28",  bio:"100mH world record holder; 2nd in Xiamen"},
+  {id:27,name:"Devynne Charlton",   flag:"🇧🇸",country:"Bahamas",      g:"W",events:["100mH"],       cat:"hurdles",cost:13,pb:"12.37",  bio:"World indoor champion; 3rd in Xiamen"},
+  {id:28,name:"Alison dos Santos",  flag:"🇧🇷",country:"Brazil",       g:"M",events:["400mH"],       cat:"hurdles",cost:19,pb:"46.72",  bio:"Beat Warholm in Xiamen 400mH"},
+  {id:29,name:"Karsten Warholm",    flag:"🇳🇴",country:"Norway",       g:"M",events:["400mH"],       cat:"hurdles",cost:22,pb:"45.94",  bio:"400mH world record holder; 2nd in Xiamen"},
+  {id:30,name:"Emma Zapletalová",   flag:"🇸🇰",country:"Slovakia",     g:"W",events:["400mH"],       cat:"hurdles",cost:14,pb:"52.82",  bio:"Won Rabat 400mH (world lead, NR)"},
+  {id:31,name:"Anna Cockrell",      flag:"🇺🇸",country:"USA",          g:"W",events:["400mH"],       cat:"hurdles",cost:14,pb:"53.18",  bio:"Olympic silver; 2nd in Rabat"},
+  {id:32,name:"Rushell Clayton",    flag:"🇯🇲",country:"Jamaica",      g:"W",events:["400mH"],       cat:"hurdles",cost:13,pb:"53.75",  bio:"World medallist; 3rd in Rabat 400mH"},
 ];
 
-// ── REAL RESULTS: meetId → { athleteId: finishPosition } ───────
-const RESULTS = {
-  shanghai:{1:1,2:2,3:3, 7:1, 18:1,15:2,19:3, 25:1},
-  xiamen:  {2:1,1:2,4:3, 7:1, 19:1,18:2,20:3, 28:1,29:2, 25:1,26:2,27:3},
-  rabat:   {3:1, 11:1, 13:1, 24:1, 5:1,6:3, 8:1,9:2,10:3, 14:1,15:2,16:3, 21:1,22:2,23:3, 30:1,31:2,32:3},
+// ── REAL RESULTS: meetId → { athleteId:{pos, rec:[flags]} } ────
+const RESULTS={
+  shanghai:{1:{pos:1},2:{pos:2},3:{pos:3}, 7:{pos:1}, 18:{pos:1,rec:['WL','MR']},15:{pos:2},19:{pos:3}, 25:{pos:1,rec:['WL','MR']}},
+  xiamen:  {2:{pos:1,rec:['SB']},1:{pos:2},4:{pos:3}, 7:{pos:1}, 19:{pos:1},18:{pos:2},20:{pos:3}, 28:{pos:1},29:{pos:2}, 25:{pos:1,rec:['NR','MR']},26:{pos:2},27:{pos:3}},
+  rabat:   {3:{pos:1,rec:['MR']}, 11:{pos:1,rec:['MR']}, 13:{pos:1}, 24:{pos:1,rec:['MR']}, 5:{pos:1,rec:['SB']},6:{pos:3}, 8:{pos:1},9:{pos:2,rec:['SB']},10:{pos:3}, 14:{pos:1,rec:['MR']},15:{pos:2},16:{pos:3}, 21:{pos:1,rec:['SB']},22:{pos:2,rec:['PB']},23:{pos:3,rec:['SB']}, 30:{pos:1,rec:['WL','NR']},31:{pos:2},32:{pos:3}},
 };
 
 // ── REAL 2026 CALENDAR ────────────────────────────────────────
-const MEETS = [
-  {id:"shanghai",name:"Shanghai / Keqiao",loc:"Shaoxing, China",   mo:"MAY",dy:"16",date:"2026-05-16",
-   disc:["M 100m","W 200m","W 1500m","W 100mH"]},
-  {id:"xiamen",  name:"Xiamen",            loc:"Xiamen, China",     mo:"MAY",dy:"23",date:"2026-05-23",
-   disc:["M 100m","W 200m","W 1500m","M 400mH","W 100mH"]},
-  {id:"rabat",   name:"Rabat",             loc:"Rabat, Morocco",    mo:"MAY",dy:"31",date:"2026-05-31",
-   disc:["M 200m","M 400m","M 800m","M 1500m","W 100m","W 200m","W 800m","W 1500m","W 400mH"]},
-  {id:"rome",    name:"Golden Gala",       loc:"Rome, Italy",       mo:"JUN",dy:"4", date:"2026-06-04",
-   disc:["100m","200m","800m","1500m","400mH","100mH"]},
-  {id:"stockholm",name:"BAUHAUS-galan",    loc:"Stockholm, Sweden", mo:"JUN",dy:"7", date:"2026-06-07",
-   disc:["100m","400m","800m","1500m","400mH"]},
-  {id:"oslo",    name:"Bislett Games",     loc:"Oslo, Norway",      mo:"JUN",dy:"10",date:"2026-06-10",
-   disc:["200m","800m","1500m","400mH","100mH"]},
-  {id:"doha",    name:"Doha Meeting",      loc:"Doha, Qatar",       mo:"JUN",dy:"19",date:"2026-06-19",
-   disc:["100m","200m","800m","1500m","100mH"]},
-  {id:"paris",   name:"Meeting de Paris",  loc:"Paris, France",     mo:"JUN",dy:"26",date:"2026-06-26",
-   disc:["100m","200m","400m","800m","1500m","400mH","100mH"]},
-  {id:"eugene",  name:"Prefontaine Classic",loc:"Eugene, USA",      mo:"JUL",dy:"4", date:"2026-07-04",
-   disc:["100m","200m","800m","1500m","400mH","100mH"]},
-  {id:"monaco",  name:"Herculis",          loc:"Monaco",            mo:"JUL",dy:"10",date:"2026-07-10",
-   disc:["100m","400m","800m","1500m","100mH"]},
-  {id:"london",  name:"London Athletics Meet",loc:"London, GBR",    mo:"JUL",dy:"18",date:"2026-07-18",
-   disc:["100m","200m","800m","1500m","400mH","100mH"]},
-  {id:"lausanne",name:"Athletissima",      loc:"Lausanne, Switzerland",mo:"AUG",dy:"21",date:"2026-08-21",
-   disc:["100m","200m","800m","1500m","400mH"]},
-  {id:"silesia", name:"Silesia Meeting",   loc:"Silesia, Poland",   mo:"AUG",dy:"23",date:"2026-08-23",
-   disc:["100m","200m","800m","1500m","100mH"]},
-  {id:"zurich",  name:"Weltklasse Zürich", loc:"Zürich, Switzerland",mo:"AUG",dy:"27",date:"2026-08-27",
-   disc:["100m","200m","400m","800m","1500m","400mH","100mH"]},
-  {id:"brussels",name:"DL Final — Brussels",loc:"Brussels, Belgium",mo:"SEP",dy:"4", date:"2026-09-04",
-   disc:["100m","200m","400m","800m","1500m","400mH","100mH"]},
+const MEETS=[
+  {id:"shanghai",name:"Shanghai / Keqiao",loc:"Shaoxing, China",   mo:"MAY",dy:"16",date:"2026-05-16",disc:["100m","200m","1500m","100mH"]},
+  {id:"xiamen",  name:"Xiamen",            loc:"Xiamen, China",     mo:"MAY",dy:"23",date:"2026-05-23",disc:["100m","200m","1500m","400mH","100mH"]},
+  {id:"rabat",   name:"Rabat",             loc:"Rabat, Morocco",    mo:"MAY",dy:"31",date:"2026-05-31",disc:["100m","200m","400m","800m","1500m","400mH"]},
+  {id:"rome",    name:"Golden Gala",       loc:"Rome, Italy",       mo:"JUN",dy:"4", date:"2026-06-04",disc:["100m","200m","800m","1500m","100mH","400mH"]},
+  {id:"stockholm",name:"BAUHAUS-galan",    loc:"Stockholm, Sweden", mo:"JUN",dy:"7", date:"2026-06-07",disc:["100m","400m","800m","1500m","400mH"]},
+  {id:"oslo",    name:"Bislett Games",     loc:"Oslo, Norway",      mo:"JUN",dy:"10",date:"2026-06-10",disc:["200m","800m","1500m","400mH","100mH"]},
+  {id:"doha",    name:"Doha Meeting",      loc:"Doha, Qatar",       mo:"JUN",dy:"19",date:"2026-06-19",disc:["100m","200m","800m","1500m","100mH"]},
+  {id:"paris",   name:"Meeting de Paris",  loc:"Paris, France",     mo:"JUN",dy:"26",date:"2026-06-26",disc:["100m","200m","400m","800m","1500m","400mH","100mH"]},
+  {id:"eugene",  name:"Prefontaine Classic",loc:"Eugene, USA",      mo:"JUL",dy:"4", date:"2026-07-04",disc:["100m","200m","800m","1500m","400mH","100mH"]},
+  {id:"monaco",  name:"Herculis",          loc:"Monaco",            mo:"JUL",dy:"10",date:"2026-07-10",disc:["100m","400m","800m","1500m","100mH"]},
+  {id:"london",  name:"London Athletics Meet",loc:"London, GBR",    mo:"JUL",dy:"18",date:"2026-07-18",disc:["100m","200m","800m","1500m","400mH","100mH"]},
+  {id:"lausanne",name:"Athletissima",      loc:"Lausanne, Switzerland",mo:"AUG",dy:"21",date:"2026-08-21",disc:["100m","200m","800m","1500m","400mH"]},
+  {id:"silesia", name:"Silesia Meeting",   loc:"Silesia, Poland",   mo:"AUG",dy:"23",date:"2026-08-23",disc:["100m","200m","800m","1500m","100mH"]},
+  {id:"zurich",  name:"Weltklasse Zürich", loc:"Zürich, Switzerland",mo:"AUG",dy:"27",date:"2026-08-27",disc:["100m","200m","400m","800m","1500m","400mH","100mH"]},
+  {id:"brussels",name:"DL Final — Brussels",loc:"Brussels, Belgium",mo:"SEP",dy:"4", date:"2026-09-04",disc:["100m","200m","400m","800m","1500m","400mH","100mH"]},
 ];
 
-const COMPLETED = ["shanghai","xiamen","rabat"];
-
-const AI_TEAMS = [
-  {name:"Track Titans", emoji:"⚡",runners:[1,7,18,25,28,13,11,21,3,30]},
-  {name:"Podium Chasers",emoji:"🏅",runners:[2,19,26,29,14,24,8,22,5,31]},
-  {name:"Lane Legends",  emoji:"🎯",runners:[4,20,27,15,16,23,9,10,12,32]},
-];
+const isCompleted=m=>new Date(m.date)<TODAY;
+const COMPLETED=MEETS.filter(isCompleted).map(m=>m.id);
+const activeMeet=()=>MEETS.find(m=>!isCompleted(m));           // next meeting (Rome)
+const lastCompleted=()=>{const c=MEETS.filter(isCompleted);return c[c.length-1]};
 
 // ── STATE ─────────────────────────────────────────────────────
-let S = {teamName:"My Team",lineup:{}};
+let S={teamName:"My Team",lineup:{},meetId:null};
 let filterCat="all", pickerSlot=null;
-function load(){try{const d=localStorage.getItem("ftf3");if(d)S={...S,...JSON.parse(d)}}catch(e){} if(!S.lineup||typeof S.lineup!=='object')S.lineup={}}
-function save(){localStorage.setItem("ftf3",JSON.stringify(S))}
+function load(){try{const d=localStorage.getItem("ftf4");if(d)S={...S,...JSON.parse(d)}}catch(e){} if(!S.lineup||typeof S.lineup!=='object')S.lineup={};
+  const am=activeMeet(); if(S.meetId!==am.id){S.lineup={};S.meetId=am.id;}}        // reset if active meeting changed
+function save(){localStorage.setItem("ftf4",JSON.stringify(S))}
 
 // ── HELPERS ───────────────────────────────────────────────────
 const runner=id=>RUNNERS.find(r=>r.id===id);
 const initials=n=>n.split(' ').map(p=>p[0]).join('').slice(0,2).toUpperCase();
-const ordinal=n=>n===1?'1st':n===2?'2nd':n===3?'3rd':n+'th';
 const lastName=n=>n.split(' ').slice(-1)[0];
+const fmtDate=d=>new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+const daysAway=d=>Math.ceil((new Date(d)-TODAY)/86400000);
 const teamIds=()=>Object.values(S.lineup).filter(Boolean);
-const isRostered=id=>teamIds().includes(id);
+const isPicked=id=>teamIds().includes(id);
 const teamValue=()=>teamIds().reduce((s,id)=>s+(runner(id)?.cost||0),0);
+const meetLanes=m=>TRACKED.filter(e=>m.disc.includes(e));    // tracked events at this meeting
 
-function athleteFitsLane(a,ev){return a.events.includes(ev)}
-function firstOpenSlotFor(a){for(const g of SLOTS){for(let i=0;i<g.count;i++){const k=`${g.event}#${i}`;if(!S.lineup[k]&&athleteFitsLane(a,g.event))return k;}}return null}
-function assignSlot(k,id){for(const key of Object.keys(S.lineup))if(S.lineup[key]===id)delete S.lineup[key];S.lineup[k]=id;save();updateHeader()}
-function dropSlot(k){delete S.lineup[k];save();updateHeader();toast('Lane cleared.','err');go('myteam')}
-function dropAthlete(id){const k=Object.keys(S.lineup).find(k=>S.lineup[k]===id);if(k){delete S.lineup[k];save();updateHeader()}}
-
-function runnerPts(id){let p=0;COMPLETED.forEach(m=>{const pos=RESULTS[m]?.[id];if(pos)p+=PTS[pos]||0});return p}
-const teamPts=ids=>ids.reduce((s,id)=>s+runnerPts(id),0);
-function standings(){const rows=[{name:S.teamName,pts:teamPts(teamIds()),isMe:true,runners:teamIds()},...AI_TEAMS.map(t=>({name:t.name,emoji:t.emoji,pts:teamPts(t.runners),isMe:false,runners:t.runners}))];return rows.sort((a,b)=>b.pts-a.pts)}
-const myRank=()=>standings().findIndex(t=>t.isMe)+1;
+function scorePoints(meetId,id){const r=RESULTS[meetId]?.[id];if(!r)return 0;let p=PLACE_PTS[r.pos]||0;(r.rec||[]).forEach(f=>p+=BONUS[f]||0);return p}
+const seasonPts=id=>COMPLETED.reduce((s,m)=>s+scorePoints(m,id),0);
+const romePts=()=>{const am=activeMeet();return teamIds().reduce((s,id)=>s+scorePoints(am.id,id),0)};
+const romeHasResults=()=>!!RESULTS[activeMeet().id];
 
 function toast(msg,type='ok'){const el=document.getElementById('toast');el.textContent=msg;el.className=`toast ${type} show`;setTimeout(()=>{el.className=`toast ${type}`},2500)}
 function updateHeader(){document.getElementById('hValue').textContent=teamValue();document.getElementById('hTeamName').textContent=S.teamName}
-const meetStatus=m=>COMPLETED.includes(m.id)?'completed':(new Date(m.date)>=TODAY?'upcoming':'completed');
-const fmtDate=d=>new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
 
 // ── NAV ───────────────────────────────────────────────────────
 function go(tab){
@@ -430,179 +372,165 @@ function go(tab){
   document.querySelectorAll('.sec').forEach(e=>e.classList.remove('active'));
   document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
   document.getElementById(`sec-${tab}`).classList.add('active');
-  ({dashboard:renderDash,draft:renderDraft,myteam:renderMyTeam,events:renderEvents,standings:renderStandings})[tab]?.();
+  ({dashboard:renderDash,myteam:renderMyTeam,draft:renderDraft,results:renderResults,rules:renderRules})[tab]?.();
 }
-function refreshAll(){['draft','myteam','dashboard','standings'].forEach(t=>{if(document.getElementById('sec-'+t).classList.contains('active')){({draft:renderDraft,myteam:renderMyTeam,dashboard:renderDash,standings:renderStandings})[t]()}})}
+function refreshAll(){['dashboard','myteam','draft','results'].forEach(t=>{if(document.getElementById('sec-'+t).classList.contains('active'))({dashboard:renderDash,myteam:renderMyTeam,draft:renderDraft,results:renderResults})[t]()})}
 
 // ── ATHLETE POOL ──────────────────────────────────────────────
 function setF(f){filterCat=f;document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));document.querySelector(`[data-f="${f}"]`).classList.add('active');renderDraft()}
-function genderTag(g){return `<span class="tag g">${g==='W'?'Women':'Men'}</span>`}
+const genderTag=g=>`<span class="tag g">${g==='W'?'Women':'Men'}</span>`;
 
 function renderDraft(){
+  const am=activeMeet(),lanes=meetLanes(am);
+  document.getElementById('drNote').innerHTML=`Only athletes in <strong>${am.name}</strong> events can be picked: ${lanes.map(e=>e).join(', ')}. Tap <strong>Add</strong> to slot them into your team for that meeting.`;
   const q=(document.getElementById('srch')?.value||'').toLowerCase();
-  const filled=teamIds().length;
-  document.getElementById('bUsed').textContent=filled;
-  document.getElementById('bRem').textContent=TOTAL_SLOTS-filled;
-  document.getElementById('bRos').textContent=teamValue();
-  document.getElementById('bBar').style.width=`${(filled/TOTAL_SLOTS)*100}%`;
-  let list=RUNNERS;
+  let list=RUNNERS.filter(r=>r.events.some(e=>lanes.includes(e)));   // only athletes competing in a meeting event
   if(filterCat!=='all')list=list.filter(r=>r.cat===filterCat);
   if(q)list=list.filter(r=>r.name.toLowerCase().includes(q)||r.country.toLowerCase().includes(q)||r.events.some(e=>e.toLowerCase().includes(q)));
   document.getElementById('draftGrid').innerHTML=list.map(r=>{
-    const on=isRostered(r.id),slot=on?null:firstOpenSlotFor(r),noLane=!on&&!slot,pts=runnerPts(r.id),col=CAT_COLOR[r.cat];
+    const on=isPicked(r.id),slot=on?null:firstOpenLaneFor(r),noLane=!on&&!slot,col=CAT_COLOR[r.cat];
     return `<div class="rc${on?' drafted':noLane?' over':''}">
       <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px">
         <div class="rav" style="background:${col}">${initials(r.name)}</div>
-        <div style="flex:1;min-width:0"><div class="rname">${r.flag} ${r.name}</div><div class="rcountry">${r.country}</div></div>
-      </div>
-      <div class="rtags">${r.events.map(e=>`<span class="tag ${r.cat}">${e}</span>`).join('')}${genderTag(r.g)}</div>
+        <div style="flex:1;min-width:0"><div class="rname">${r.flag} ${r.name}</div><div class="rcountry">${r.country}</div></div></div>
+      <div class="rtags">${r.events.filter(e=>lanes.includes(e)).map(e=>`<span class="tag ${r.cat}">${e}</span>`).join('')}${genderTag(r.g)}</div>
       <div class="rpb"><strong>2026 best:</strong> ${r.pb}</div>
       <div class="rbio">${r.bio}</div>
-      <div style="font-size:11px;color:var(--t2);margin-bottom:10px">Season pts: <strong style="color:var(--or)">${pts}</strong></div>
+      <div style="font-size:11px;color:var(--t2);margin-bottom:10px">Season form: <strong style="color:var(--or)">${seasonPts(r.id)} pts</strong></div>
       <div class="rfoot"><div class="rcost">${r.cost} <span>value</span></div>
-        ${on?`<button class="btn btn-d bsm" onclick="drop(${r.id})">Remove</button>`:`<button class="btn btn-p bsm" ${noLane?'disabled':''} onclick="draft(${r.id})">${noLane?'No open lane':'Add'}</button>`}
+        ${on?`<button class="btn btn-d bsm" onclick="drop(${r.id})">Remove</button>`:`<button class="btn btn-p bsm" ${noLane?'disabled':''} onclick="draft(${r.id})">${noLane?'Lane taken':'Add'}</button>`}
       </div></div>`;
   }).join('');
 }
-function draft(id){const r=runner(id);if(!r)return;const slot=firstOpenSlotFor(r);if(!slot){toast(`No open ${r.events.join('/')} lane.`,'err');return}assignSlot(slot,id);toast(`✅ ${r.name} added!`);refreshAll()}
-function drop(id){const r=runner(id);if(!r)return;dropAthlete(id);toast(`${r.name} removed.`,'err');refreshAll()}
+
+// ── LINEUP (keyed by event) ───────────────────────────────────
+function firstOpenLaneFor(a){const lanes=meetLanes(activeMeet());for(const e of lanes){if(a.events.includes(e)&&!S.lineup[e])return e}return null}
+function assignLane(ev,id){for(const k of Object.keys(S.lineup))if(S.lineup[k]===id)delete S.lineup[k];S.lineup[ev]=id;save();updateHeader()}
+function clearLane(ev){delete S.lineup[ev];save();updateHeader()}
+function draft(id){const r=runner(id);if(!r)return;const ev=firstOpenLaneFor(r);if(!ev){toast(`No open lane for ${r.name}.`,'err');return}assignLane(ev,id);toast(`✅ ${r.name} picked!`);refreshAll()}
+function drop(id){const r=runner(id);if(!r)return;const k=Object.keys(S.lineup).find(k=>S.lineup[k]===id);if(k)clearLane(k);toast(`${r.name} removed.`,'err');refreshAll()}
 
 // ── PICKER ────────────────────────────────────────────────────
-function openPicker(key,event){
-  pickerSlot={key,event};
-  const label=event==='100mH'?'100m Hurdles':event==='400mH'?'400m Hurdles':event;
-  document.getElementById('pickerTitle').textContent=`Pick a ${label} athlete`;
-  document.getElementById('pickerSub').textContent=`Real Diamond League ${label} runners. Tap to add to this lane.`;
-  const avail=RUNNERS.filter(r=>athleteFitsLane(r,event)&&!isRostered(r.id));
+function openPicker(ev){
+  pickerSlot=ev;
+  const label=ev==='100mH'?'100m Hurdles':ev==='400mH'?'400m Hurdles':ev;
+  document.getElementById('pickerTitle').textContent=`Pick your ${label} athlete`;
+  document.getElementById('pickerSub').textContent=`Real ${label} runners entered for ${activeMeet().name}. Tap to add.`;
+  const avail=RUNNERS.filter(r=>r.events.includes(ev)&&!isPicked(r.id));
   document.getElementById('pickerGrid').innerHTML=avail.length?avail.map(r=>{
-    const col=CAT_COLOR[r.cat],pts=runnerPts(r.id);
+    const col=CAT_COLOR[r.cat];
     return `<div class="rc" style="cursor:pointer" onclick="pickAthlete(${r.id})">
       <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px">
         <div class="rav" style="background:${col}">${initials(r.name)}</div>
-        <div style="flex:1;min-width:0"><div class="rname">${r.flag} ${r.name}</div><div class="rcountry">${r.country}</div></div>
-      </div>
-      <div class="rtags">${r.events.map(e=>`<span class="tag ${r.cat}">${e}</span>`).join('')}${genderTag(r.g)}</div>
+        <div style="flex:1;min-width:0"><div class="rname">${r.flag} ${r.name}</div><div class="rcountry">${r.country}</div></div></div>
+      <div class="rtags"><span class="tag ${r.cat}">${ev}</span>${genderTag(r.g)}</div>
       <div class="rpb"><strong>2026 best:</strong> ${r.pb}</div>
       <div class="rbio">${r.bio}</div>
-      <div class="rfoot"><div style="font-size:11px;color:var(--t2)">Season: <strong style="color:var(--or)">${pts} pts</strong></div>
+      <div class="rfoot"><div style="font-size:11px;color:var(--t2)">Form: <strong style="color:var(--or)">${seasonPts(r.id)} pts</strong></div>
         <button class="btn btn-p bsm" onclick="event.stopPropagation();pickAthlete(${r.id})">+ Add</button></div></div>`;
-  }).join(''):`<div class="empty" style="grid-column:1/-1"><div class="ic">🤷</div><p>All ${label} athletes are already in your lineup.</p></div>`;
+  }).join(''):`<div class="empty" style="grid-column:1/-1"><div class="ic">🤷</div><p>No more ${label} athletes available.</p></div>`;
   document.getElementById('pickerModal').classList.add('open');
 }
-function pickAthlete(id){if(!pickerSlot)return;assignSlot(pickerSlot.key,id);closePicker();toast(`✅ ${runner(id).name} added!`);go('myteam')}
+function pickAthlete(id){if(!pickerSlot)return;assignLane(pickerSlot,id);closePicker();toast(`✅ ${runner(id).name} picked!`);go('myteam')}
 function closePicker(){pickerSlot=null;document.getElementById('pickerModal').classList.remove('open')}
 
-// ── MY TEAM (TRACK) ───────────────────────────────────────────
+// ── MY TEAM ───────────────────────────────────────────────────
 function renderMyTeam(){
-  const ids=teamIds(),total=teamPts(ids),filled=ids.length;
-  document.getElementById('mtPts').textContent=total;
-  const stats=`<div class="g4" style="margin-bottom:18px">
-    <div class="scard or"><div class="slabel">Season Points</div><div class="sval">${total}</div></div>
-    <div class="scard bl"><div class="slabel">Lanes Filled</div><div class="sval">${filled}<span style="font-size:15px;color:var(--t3)">/${TOTAL_SLOTS}</span></div></div>
-    <div class="scard gd"><div class="slabel">Team Value</div><div class="sval">${teamValue()}</div></div>
-    <div class="scard gr"><div class="slabel">League Rank</div><div class="sval">#${myRank()}</div></div></div>`;
-  const lanes=SLOTS.map(g=>{
-    const col=EVENT_COLOR[g.event]||'#888';let lf=0;const cells=[];
-    for(let i=0;i<g.count;i++){
-      const key=`${g.event}#${i}`,id=S.lineup[key];
-      if(id){lf++;const r=runner(id);
-        cells.push(`<div class="slot filled" onclick="openPicker('${key}','${g.event}')" title="Tap to swap">
-          <button class="slot-x" onclick="event.stopPropagation();dropSlot('${key}')" title="Remove">×</button>
-          <div class="slot-av" style="background:${CAT_COLOR[r.cat]}">${initials(r.name)}</div>
-          <div class="slot-name">${r.flag} ${lastName(r.name)}</div>
-          <div class="slot-ev">${g.event} · ${r.g}</div>
-          <div class="slot-pts">${runnerPts(id)} pts</div></div>`);
-      } else {
-        cells.push(`<div class="slot empty" onclick="openPicker('${key}','${g.event}')">
-          <div class="plus">+</div><div class="slot-ev">${g.event}</div><div class="slot-hint">Tap to add</div></div>`);
-      }
-    }
-    const label=g.event==='100mH'?'100m H':g.event==='400mH'?'400m H':g.event;
-    return `<div class="lane"><div class="lane-tag" style="--c:${col}">${label} <small>${lf}/${g.count} filled</small></div><div class="slots">${cells.join('')}</div></div>`;
-  }).join('');
-  document.getElementById('mtContent').innerHTML=stats+`<div class="track">
-    <div class="track-head">🏟️ <span>Your Lineup Track</span> <small>— tap a lane to add a real DL athlete from that event</small></div>${lanes}</div>`;
-}
-
-// ── FIXTURES ──────────────────────────────────────────────────
-function renderEvents(){
-  const nextId=(MEETS.find(m=>meetStatus(m)==='upcoming')||{}).id;
-  document.getElementById('evtList').innerHTML=MEETS.map(m=>{
-    const st=meetStatus(m),comp=st==='completed',isNext=m.id===nextId;
-    const days=Math.ceil((new Date(m.date)-TODAY)/86400000);
-    let extra='';
-    if(comp){
-      const res=RESULTS[m.id];
-      if(res){
-        const items=Object.entries(res).sort(([,a],[,b])=>a-b).map(([rid,pos])=>{
-          const r=runner(+rid);if(!r)return'';const onTeam=isRostered(+rid);const pc=pos<=3?`p${pos}`:'po';
-          return `<div class="eitem" style="${onTeam?'border:1px solid rgba(255,107,53,.5);background:rgba(255,107,53,.05)':''}">
-            <div class="pos ${pc}">${pos}</div>
-            <div style="flex:1;min-width:0"><div style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.flag} ${lastName(r.name)}</div>
-            <div style="font-size:10px;color:var(--t3)">${r.events.find(e=>true)} · ${r.g}</div></div>
-            <div style="font-weight:700;color:var(--or);font-size:12px">+${PTS[pos]||0}</div></div>`;
-        }).join('');
-        extra=`<div class="eres">${items}</div>`;
-      } else extra=`<div style="margin-top:10px;font-size:12px;color:var(--t3)">Results not tracked for this meeting.</div>`;
+  const am=activeMeet(),lanes=meetLanes(am),filled=teamIds().length,d=daysAway(am.date);
+  document.getElementById('mtFor').innerHTML=`for <strong style="color:var(--or)">${am.name}</strong>`;
+  document.getElementById('mtNote').innerHTML=`🔒 Your team is for <strong>${am.name}</strong> (${fmtDate(am.date)}, ${d} day${d===1?'':'s'} away). Edit it freely until the meeting starts — then real results drop in and points are added automatically. One athlete per event.`;
+  const lanesHtml=lanes.map(ev=>{
+    const col=EVENT_COLOR[ev]||'#888',id=S.lineup[ev];
+    const label=ev==='100mH'?'100m H':ev==='400mH'?'400m H':ev;
+    let cell;
+    if(id){const r=runner(id);
+      cell=`<div class="slot filled" onclick="openPicker('${ev}')" title="Tap to swap">
+        <button class="slot-x" onclick="event.stopPropagation();dropLane('${ev}')" title="Remove">×</button>
+        <div class="slot-av" style="background:${CAT_COLOR[r.cat]}">${initials(r.name)}</div>
+        <div class="slot-name">${r.flag} ${lastName(r.name)}</div>
+        <div class="slot-ev">${ev} · ${r.g}</div>
+        <div class="slot-pts">form ${seasonPts(id)} pts</div></div>`;
     } else {
-      extra=`<div style="margin-top:10px;font-size:12px;color:var(--t3)">📅 ${days} day${days===1?'':'s'} away — not yet contested</div>`;
+      cell=`<div class="slot empty" onclick="openPicker('${ev}')"><div class="plus">+</div><div class="slot-ev">${label}</div><div class="slot-hint">Tap to add</div></div>`;
     }
-    const badge=comp?'<span class="sbadge completed">✅ Completed</span>':isNext?'<span class="sbadge next">⏭️ Next Up</span>':'<span class="sbadge upcoming">🔜 Upcoming</span>';
-    return `<div class="ecard"><div class="edate"><div class="mo">${m.mo}</div><div class="dy">${m.dy}</div></div>
+    return `<div class="lane"><div class="lane-tag" style="--c:${col}">${label}</div><div class="slots">${cell}</div></div>`;
+  }).join('');
+  const stats=`<div class="g4" style="margin-bottom:18px">
+    <div class="scard or"><div class="slabel">Rome Points</div><div class="sval">${romeHasResults()?romePts():'—'}</div><div class="ssub">${romeHasResults()?'final':'pending results'}</div></div>
+    <div class="scard bl"><div class="slabel">Lanes Filled</div><div class="sval">${filled}<span style="font-size:15px;color:var(--t3)">/${lanes.length}</span></div></div>
+    <div class="scard gd"><div class="slabel">Team Value</div><div class="sval">${teamValue()}</div></div>
+    <div class="scard gr"><div class="slabel">Squad Form</div><div class="sval">${teamIds().reduce((s,id)=>s+scorePoints(lastCompleted().id,id),0)}</div><div class="ssub">last meet pts</div></div></div>`;
+  document.getElementById('mtContent').innerHTML=stats+`<div class="track">
+    <div class="track-head">🏟️ <span>${am.name} Lineup</span> <small>— one athlete per event · tap a lane to pick</small></div>${lanesHtml}</div>`;
+}
+function dropLane(ev){const r=runner(S.lineup[ev]);clearLane(ev);toast(`${r?r.name:'Athlete'} removed.`,'err');go('myteam')}
+
+// ── RESULTS / FIXTURES ────────────────────────────────────────
+function recChips(rec){return (rec||[]).map(f=>`<span class="recchip">${f} +${BONUS[f]}</span>`).join('')}
+function renderResults(){
+  // leaderboard: top scorers across completed meets
+  const lb=RUNNERS.map(r=>({r,pts:seasonPts(r.id)})).filter(x=>x.pts>0).sort((a,b)=>b.pts-a.pts).slice(0,8);
+  document.getElementById('leaderboard').innerHTML=`<div style="display:flex;flex-direction:column;gap:6px">${lb.map(({r,pts},i)=>`
+    <div class="lb-row"><div style="width:20px;font-weight:800;color:var(--t3);text-align:center">${i+1}</div>
+      <div class="lb-av" style="background:${CAT_COLOR[r.cat]}">${initials(r.name)}</div>
+      <div style="flex:1"><div style="font-weight:600;font-size:13px">${r.flag} ${r.name}</div>
+      <div style="font-size:11px;color:var(--t3)">${r.events[0]} ${r.g} · ${r.country}</div></div>
+      <div style="font-weight:800;color:var(--or)">${pts} pts</div></div>`).join('')}</div>`;
+
+  const nextId=activeMeet().id;
+  document.getElementById('evtList').innerHTML=MEETS.map(m=>{
+    const comp=isCompleted(m),isNext=m.id===nextId,res=RESULTS[m.id];
+    let extra='';
+    if(comp&&res){
+      const items=Object.entries(res).sort(([,a],[,b])=>a.pos-b.pos).map(([rid,r])=>{
+        const a=runner(+rid);if(!a)return'';const mine=isPicked(+rid)&&isNext;const pc=r.pos<=3?`p${r.pos}`:'po';const tot=scorePoints(m.id,+rid);
+        return `<div class="eitem">
+          <div class="pos ${pc}">${r.pos}</div>
+          <div style="flex:1;min-width:0"><div style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${a.flag} ${lastName(a.name)} <span style="color:var(--t3);font-weight:400">${a.events[0]} ${a.g}</span></div>
+          <div style="display:flex;gap:3px;flex-wrap:wrap;margin-top:2px">${recChips(r.rec)}</div></div>
+          <div style="font-weight:800;color:var(--or);font-size:13px">${tot}</div></div>`;
+      }).join('');
+      extra=`<div class="eres">${items}</div>`;
+    } else if(comp){extra=`<div style="margin-top:10px;font-size:12px;color:var(--t3)">Results not tracked.</div>`;}
+    else if(isNext){extra=`<div style="margin-top:10px;font-size:12px;color:var(--gold)">⏭️ Your team is built for this meeting — results pending.</div>`;}
+    else{extra=`<div style="margin-top:10px;font-size:12px;color:var(--t3)">📅 ${daysAway(m.date)} days away</div>`;}
+    const badge=comp?'<span class="sbadge completed">✅ Completed</span>':isNext?'<span class="sbadge next">⏭️ Your Meeting</span>':'<span class="sbadge upcoming">🔜 Upcoming</span>';
+    return `<div class="ecard${isNext?' hl':''}"><div class="edate"><div class="mo">${m.mo}</div><div class="dy">${m.dy}</div></div>
       <div class="einfo"><div class="ename">${m.name}</div><div class="eloc">📍 ${m.loc} · ${fmtDate(m.date)}</div>
         ${badge}<div class="disc">${m.disc.map(d=>`<span class="dchip">${d}</span>`).join('')}</div>${extra}</div></div>`;
   }).join('');
 }
 
-// ── STANDINGS ─────────────────────────────────────────────────
-function renderStandings(){
-  const rows=standings(),n=COMPLETED.length;
-  document.getElementById('stEvts').textContent=n;
-  document.getElementById('stTbl').innerHTML=`<thead><tr><th style="width:40px">#</th><th>Team</th><th style="text-align:right">Pts</th><th style="text-align:right">Avg/Meet</th><th style="text-align:right">Athletes</th></tr></thead><tbody>${rows.map((t,i)=>{
-    const rn=i+1,rc=rn<=3?`r${rn}`:'ro',avg=(t.pts/n).toFixed(1),em=t.isMe?'🎮':(t.emoji||'🤖');
-    return `<tr><td><div class="rnum ${rc}">${rn}</div></td>
-      <td><div style="display:flex;align-items:center;gap:8px"><span style="font-size:18px">${em}</span>
-        <div><div style="font-weight:700${t.isMe?';color:var(--or)':''}">${t.isMe?'⭐ ':''}${t.name}${t.isMe?' (You)':''}</div>
-        <div style="font-size:11px;color:var(--t3)">${t.runners.length} athletes</div></div></div></td>
-      <td style="text-align:right;font-weight:800;font-size:16px">${t.pts}</td>
-      <td style="text-align:right;color:var(--t2)">${avg}</td>
-      <td style="text-align:right;color:var(--t2)">${t.runners.length}</td></tr>`;
-  }).join('')}</tbody>`;
-  document.getElementById('stBreak').innerHTML=rows.map(t=>{
-    const aths=t.runners.map(id=>runner(id)).filter(Boolean),em=t.isMe?'🎮':(t.emoji||'🤖');
-    return `<div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)">
-      <div style="font-weight:700;margin-bottom:8px">${em} ${t.name}${t.isMe?` <span style="color:var(--or)">(You)</span>`:''}</div>
-      <div style="display:flex;flex-wrap:wrap;gap:6px">${aths.length?aths.map(r=>`<div style="display:flex;align-items:center;gap:6px;padding:4px 10px;background:var(--bg2);border-radius:8px;font-size:12px">
-        <div style="width:22px;height:22px;border-radius:50%;background:${CAT_COLOR[r.cat]};display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff">${initials(r.name)}</div>
-        <span>${r.flag} ${lastName(r.name)}</span><span style="color:var(--or);font-weight:700">${runnerPts(r.id)}pts</span></div>`).join(''):`<span style="color:var(--t3);font-size:12px">No athletes drafted</span>`}</div></div>`;
-  }).join('');
+// ── SCORING RULES ─────────────────────────────────────────────
+function renderRules(){
+  document.getElementById('placeRules').innerHTML=Object.entries(PLACE_PTS).map(([p,v])=>`<div class="rule place"><span>${p==1?'1st':p==2?'2nd':p==3?'3rd':p+'th'} place</span><span class="v">${v}</span></div>`).join('');
+  const order=['WR','AR','CR','WL','NR','MR','PB','SB'];
+  document.getElementById('bonusRules').innerHTML=order.map(f=>`<div class="rule"><span>${BONUS_LABEL[f]}</span><span class="v">+${BONUS[f]}</span></div>`).join('');
+  document.getElementById('ruleExample').innerHTML=`Birke Haylom won the Shanghai 1500m <strong>and</strong> set a meeting record + world lead, so she scored <strong>10</strong> (1st) + <strong>12</strong> (MR) + <strong>16</strong> (WL) = <strong style="color:var(--or)">38 points</strong>.<br>A 5th-place finish with a personal best scores <strong>1</strong> + <strong>7</strong> = <strong style="color:var(--or)">8 points</strong>.`;
 }
 
 // ── DASHBOARD ─────────────────────────────────────────────────
 function renderDash(){
-  const ids=teamIds();
-  document.getElementById('dataNote').innerHTML=`📊 This app uses the <strong>real 2026 Wanda Diamond League</strong> calendar and <strong>actual marquee-event results</strong>. As of 1 June 2026, three meetings are complete: <strong>Shanghai, Xiamen, Rabat</strong>. Your points are the real Diamond League points your athletes scored (15-12-10-8-6-5-4-3 for places 1-8).`;
-  document.getElementById('dPts').textContent=teamPts(ids);
-  document.getElementById('dRank').textContent=`#${myRank()}`;
-  document.getElementById('dRos').textContent=ids.length;
+  const am=activeMeet(),lanes=meetLanes(am),d=daysAway(am.date),filled=teamIds().length;
+  document.getElementById('dataNote').innerHTML=`📊 Real <strong>2026 Wanda Diamond League</strong> calendar & results. You build <strong>one team per meeting</strong>. Your current team is for the next meeting — when it runs, real results are scored with your points system.`;
+  document.getElementById('dHero').innerHTML=`<div class="edate"><div class="mo">${am.mo}</div><div class="dy">${am.dy}</div></div>
+    <div class="einfo"><div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--gold);margin-bottom:4px">⏭️ Your Meeting</div>
+      <div class="ename" style="font-size:18px">${am.name}</div><div class="eloc">📍 ${am.loc} · ${fmtDate(am.date)} · ${d} day${d===1?'':'s'} away</div>
+      <div style="font-size:12px;color:var(--t2)">Pick one athlete per event: ${lanes.join(', ')}</div></div>`;
+  document.getElementById('dPts').textContent=romeHasResults()?romePts():'—';
+  document.getElementById('dPtsSub').textContent=romeHasResults()?'final score':'pending results';
+  document.getElementById('dRos').textContent=filled;
+  document.getElementById('dRosSub').textContent=`of ${lanes.length}`;
   document.getElementById('dBud').textContent=teamValue();
-  document.getElementById('dDraftPrompt').style.display=ids.length?'none':'block';
-  const pEl=document.getElementById('dPerfs');
-  if(!ids.length)pEl.innerHTML=`<div class="empty" style="padding:20px"><div class="ic">🏟️</div><p>Build your lineup to see performers</p></div>`;
-  else{const sorted=ids.map(id=>({r:runner(id),pts:runnerPts(id)})).filter(x=>x.r).sort((a,b)=>b.pts-a.pts).slice(0,5);
-    pEl.innerHTML=`<div style="display:flex;flex-direction:column;gap:8px">${sorted.map(({r,pts})=>`<div class="perf-row">
-      <div class="perf-av" style="background:${CAT_COLOR[r.cat]}">${initials(r.name)}</div>
-      <div style="flex:1"><div style="font-weight:600;font-size:13px">${r.flag} ${r.name}</div>
-      <div style="font-size:11px;color:var(--t2)">${r.events[0]} ${r.g} · ${r.country}</div></div>
-      <div style="font-weight:800;color:var(--or)">${pts} pts</div></div>`).join('')}</div>`;}
-  const nxt=MEETS.find(m=>meetStatus(m)==='upcoming');
-  if(nxt){
-    document.getElementById('dEvtName').textContent=nxt.name;
-    document.getElementById('dEvtInfo').textContent=`${nxt.loc} · ${fmtDate(nxt.date)}`;
-    const d=Math.ceil((new Date(nxt.date)-TODAY)/86400000);
-    document.getElementById('dEvtBadge').textContent='⏭️ Next Up';
-    document.getElementById('dEvtHint').textContent=`${d} day${d===1?'':'s'} away`;
-  }
+  document.getElementById('dForm').textContent=teamIds().reduce((s,id)=>s+scorePoints(lastCompleted().id,id),0);
+
+  const sq=document.getElementById('dSquad');
+  if(!filled){sq.innerHTML=`<div class="empty" style="padding:20px"><div class="ic">🏟️</div><p>You haven't picked anyone yet for ${am.name}.</p><br><button class="btn btn-p" onclick="go('myteam')">Build your team →</button></div>`;return}
+  sq.innerHTML=`<div style="display:flex;flex-direction:column;gap:8px">${lanes.filter(e=>S.lineup[e]).map(e=>{const r=runner(S.lineup[e]);
+    return `<div class="lb-row"><div class="lb-av" style="background:${CAT_COLOR[r.cat]}">${initials(r.name)}</div>
+      <div style="flex:1"><div style="font-weight:600;font-size:13px">${r.flag} ${r.name}</div><div style="font-size:11px;color:var(--t2)">${e} ${r.g} · ${r.country}</div></div>
+      <div style="font-size:11px;color:var(--t3)">form <strong style="color:var(--or)">${seasonPts(r.id)}</strong></div></div>`;
+  }).join('')}</div><div style="margin-top:12px;font-size:12px;color:var(--t3)">${filled}/${lanes.length} lanes filled · <a style="color:var(--or);cursor:pointer" onclick="go('myteam')">edit team</a></div>`;
 }
 
 // ── TEAM NAME ─────────────────────────────────────────────────
@@ -615,7 +543,7 @@ document.getElementById('nameInput').addEventListener('keydown',e=>{if(e.key==='
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closePicker()});
 
 // ── INIT ──────────────────────────────────────────────────────
-load();updateHeader();renderDash();
+load();save();updateHeader();renderDash();
 </script>
 </body>
 </html>
